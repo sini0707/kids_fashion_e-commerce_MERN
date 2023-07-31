@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Male_Fashion Template" />
+    <meta name="keywords" content="Male_Fashion, unica, creative, html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>KidZ Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+  </head>
+
+  <body>
+   
+   
+  
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+      <div class="offcanvas__option">
+        <div class="offcanvas__links">
+          <a href="#">Sign in</a>
+          <a href="#">Login</a>
+          <a href="/login">Logout</a>
+        </div>
+        <!-- <div class="offcanvas__top__hover">
+                <span>Usd <i class="arrow_carrot-down"></i></span>
+                <ul>
+                    <li>USD</li>
+                    <li>EUR</li>
+                    <li>USD</li>
+                </ul>
+            </div> -->
+      </div>
+      <div class="offcanvas__nav__option">
+        <a href="/shop" class="search-switch"
+          ><img src="img/icon/search.png" alt=""
+        /></a>
+        <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+        <a href="/cart"
+          ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
+        >
+        <div class="price">$0.00</div>
+      </div>
+      <div id="mobile-menu-wrap"></div>
+      <div class="offcanvas__text">
+        <p>Free shipping, 30-day return or refund guarantee.</p>
+      </div>
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+      <div class="header__top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-7">
+              <div class="header__top__left">
+                <p>Free shipping, 30-day return or refund guarantee.</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-5">
+              <div class="header__top__right">
+                <div class="header__top__links">
+                  <a href="/signup">Signup</a>
+                  <a href="/login">Login</a>
+                  <a href="/login">Logout</a>
+                </div>
+                <!-- <div class="header__top__hover">
+                                <span>Usd <i class="arrow_carrot-down"></i></span>
+                                <ul>
+                                    <li>USD</li>
+                                    <li>EUR</li>
+                                    <li>USD</li>
+                                </ul>
+                            </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-3">
+            <div class="header__logo">
+              <a href="./index.html"
+                ><img src="/img/kid-logo.jpg" alt="" width="150" height="100"
+              /></a>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6">
+            <nav class="header__menu mobile-menu">
+              <ul>
+                <li><a href="/home">Home</a></li>
+                <li class="active"><a href="/shop">Shop</a></li>
+                <li>
+                  <a href="#">Pages</a>
+                  <ul class="dropdown">
+                    <li><a href="./about.html">About Us</a></li>
+                    <li><a href="./shop-details.html">Shop Details</a></li>
+                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                    <li><a href="./checkout.html">Check Out</a></li>
+                    <li><a href="./blog-details.html">Blog Details</a></li>
+                  </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contacts</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <div class="header__nav__option">
+              <a href="/search" class="search-switch"
+                ><img src="img/icon/search.png" alt=""
+              /></a>
+              <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+              <a href="/cart"
+                ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
+              >
+              <div class="price">
+                <% if (typeof cartCount !== 'undefined') { %>
+                <span><%= cartCount %></span>
+                <% } else { %>
+                <span>0</span>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+      </div>
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="breadcrumb__text">
+              <h4>Shop</h4>
+              <div class="breadcrumb__links">
+                <a href="/home">Home</a>
+                <span>Shop</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shop spad">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="shop__sidebar">
+              <div class="shop__sidebar__search">
+                <!-- <form action="/shop"> -->
+                <form
+                  action="/search"
+                  method="post"
+                  class="search-form"
+                  style="margin-left: 10px"
+                >
+                  <input type="text" placeholder="Search..." name="search" />
+                  <button type="submit">
+                    <span class="icon_search"></span>
+                  </button>
+                </form>
+              </div>
+              <div class="shop__sidebar__accordion">
+                <div class="accordion" id="accordionExample">
+                  <div class="card">
+                    <div class="card-heading">
+                      <a data-toggle="collapse" data-target="#collapseOne"
+                        >Categories</a
+                      >
+                    </div>
+                    <div
+                      id="collapseOne"
+                      class="collapse show"
+                      data-parent="#accordionExample"
+                    >
+                      <div class="card-body">
+                        <div class="shop__sidebar__categories">
+                          <!-- <div class="head">Browse Categories</div> -->
+                          <% category.forEach(function(item) { %>
+
+                          <option
+                            value="<%=item._id%>"
+                            data-url="/categoryShop?id=<%=item._id%>"
+                          >
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <%=item.name%>
+                          </option>
+                          <% }) %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="row product__filter">
+                <% product.forEach(product => { %>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                  <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="">
+                      <a href="/single-product?id=<%=product.id%>"
+                        ><img src="/product-images/<%= product.images[0] %>"
+                      /></a>
+                      <ul class="product__hover">
+                        <li>
+                          <a href="#"><img src="img/icon/heart.png" alt="" /></a>
+                        </li>
+                        <li>
+                          <a href="#"
+                            ><img src="img/icon/compare.png" alt="" />
+                            <span>Compare</span></a
+                          >
+                        </li>
+                        <li>
+                          <a href="#"><img src="img/icon/search.png" alt="" /></a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="product__item__text">
+                      <h6><%= product.name %></h6>
+                      <a href="/cart" class="add-cart">+ Add To Cart</a>
+  
+                      <!-- <div class="rating">
+                                          <i class="fa fa-star-o"></i>
+                                          <i class="fa fa-star-o"></i>
+                                          <i class="fa fa-star-o"></i>
+                                          <i class="fa fa-star-o"></i>
+                                          <i class="fa fa-star-o"></i>
+                                      </div> -->
+                      <h5><%= product.price%></h5>
+  
+                      <div class="product__color__select">
+                        <label for="pc-4">
+                          <input type="radio" id="pc-4" />
+                        </label>
+                        <label class="active black" for="pc-5">
+                          <input type="radio" id="pc-5" />
+                        </label>
+                        <label class="grey" for="pc-6">
+                          <input type="radio" id="pc-6" />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

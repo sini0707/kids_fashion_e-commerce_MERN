@@ -1,0 +1,71 @@
+<%- include ('../layouts/header.ejs') %>
+
+<section class="shopping-cart spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <%if(wishlistProducts.length!=0) {%>
+                <div class="shopping__cart__table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th scope="col">Action</th>
+                                <th scope="col">Remove</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% wishlistProducts.forEach(function(item) { %>
+                            <tr>
+                                <td class="product__cart__item">
+                                    <div class="product__cart__item__pic">
+                                        <img src="/product-images/<%=item.wishListed.image[0]%>">
+                                    </div>
+                                    <div class="product__cart__item__text">
+                                        <h5 class="product-name"><a href="/singleProduct?id=<%=item.wishListed._id %>"><%=item.wishListed.name%></a></h5>
+                                        <p class="font-xs"><%=item.wishListed.description%>
+                                        </p>
+                                        <td class="price" data-title="Price"><span>₹<%=item.wishListed.price%></span></td>
+                                      
+                                    </div>
+                                </td>
+                                <td class="text-right" data-title="Cart">
+                                    <button class="btn btn-sm cool-button" onclick="addtocart('<%=item.productId%>')">
+                                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    </button>
+                
+                                  </td>
+                                  <td class="action" data-title="Remove" onclick="removeFromWishList('<%=item.productId%>')"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                  
+                                </tr>
+                                <% }); %>
+                              </tbody>
+                            </table>
+                          
+        
+                      </div>
+                   <% }else{%>
+      
+      
+                    <!-- <div style="display: flex; justify-content: center;">
+                      <div class="col-md-lg-5">
+                          <div class="typography" style="text-align: center;">
+                              <img style="width: 295px;" src="" alt="">
+                              <h3>Oops! Your Wish List is empty</h3>
+                          </div>
+                      </div>
+                  </div> -->
+                  
+                    <%  } %>
+      
+                   
+      
+</section>
+            
+
+
+
+<%- include ('../layouts/footer.ejs') %>

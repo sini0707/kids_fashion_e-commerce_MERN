@@ -1,0 +1,214 @@
+
+
+
+<%- include('../layouts/header.ejs') %>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .container{
+            background-repeat: no-repeat;
+        }
+
+.gradient-custom-3 {
+/* fallback for old browsers */
+background: #84fab0;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+}
+.gradient-custom-4 {
+/* fallback for old browsers */
+background: #84fab0;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+}
+        
+ */
+ /* .container{
+ background-repeat: no-repeat;
+ } */
+
+    </style>
+    
+</head>
+<body>
+   
+
+        <section class="vh-100 bg-image" style="background-image: url('/img/bk2.jpg'); background-size: cover;">
+            <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+              <div class="container h-80">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                  <div class="col-12 col-md-7 col-lg-6">
+                    <div class="card" style="border-radius: 18px; opacity: 0.7;">
+                      <div class="card-body p-4">
+                        <h3 class="text-uppercase text-center mb-3">Create an account</h3>
+          
+                        <form action="/signup" method="post" class="mb-4">
+                            <label class="form-label" for="form3Example1cg">First Name</label>
+                            <div class="form-outline mb-2"> 
+                              <input type="text" class="form-control" id="firstname" placeholder="First name" name="firstname">
+                            </div>
+                          
+                            <label class="form-label" for="form3Example1cg">Last Name</label>
+                            <div class="form-outline mb-2"> <!-- Reduce margin-bottom from mb-3 to mb-2 -->
+                              <input type="text" class="form-control" id="lastname" placeholder="Last name" name="lastname">
+                            </div>
+                          
+                            <label class="form-label" for="form3Example3cg">E-mail</label>
+                            <div class="form-outline mb-2"> <!-- Reduce margin-bottom from mb-4 to mb-2 -->
+                              <input type="email" class="form-control" id="email" placeholder="E-mail" name="email">
+                            </div>
+                          
+                            <label class="form-label" for="form3Example3cg">Mobile</label>
+                            <div class="form-outline mb-2"> <!-- Reduce margin-bottom from mb-4 to mb-2 -->
+                              <input type="text" class="form-control" id="mobilenumber" placeholder="Mobile number" name="mno">
+                            </div>
+                          
+                            <label class="form-label" for="form3Example4cg">Password</label>
+                            <div class="form-outline mb-2"> <!-- Reduce margin-bottom from mb-4 to mb-2 -->
+                              <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                            </div>
+                          
+                            <label class="form-label" for="form3Example4cdg">Confirm Password</label>
+                            <div class="form-outline mb-2"> <!-- Reduce margin-bottom from mb-4 to mb-2 -->
+                              <input type="password" class="form-control" id="confirmpassword" placeholder="Confirm password" name="confirmpassword">
+                            </div>
+                          
+                            <div class="d-flex justify-content-center">
+                              <input class="btn btn-success btn-block btn-lg gradient-custom-4 text-body" type="submit" value="Signup">
+                            </div>
+                          
+                            <%=(typeof message!=='undefined')?message:""%>
+                          
+                            <p class="text-center text-muted mt-4 mb-0">Have already an account? <a href="/login">Sign In</a></p>
+                          </form>
+                          
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          
+
+        <!-- Sign Up Start -->
+        <!-- <div class="container-fluid">
+            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
+                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                    <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
+                        <div class="mb-3">
+                                <a href="{% url 'joejee:Home' %}" class='w-100'><img src="{% static 'joejee/img/tlogo.png' %}" alt=""  class="card-img-top w-100" ></a>
+                                <h3 class="text-center" >Sign Up</h3>
+                        </div>
+                        <form action = "/signup " method = "POST" >
+                      
+                            <div class="form-floating mb-3">
+                                <label for="floatingText">First Name</label> 
+                                <br>
+                                <br>
+                                <input type="text" class="form-control" id="firstname" placeholder="First name" name ="firstname" >
+                                
+                            </div>
+                            <div>
+                          
+                                  
+                            
+                            <div class="form-floating mb-3">
+                            
+                                <label for="floatingText">Last Name</label>
+                                <br>
+                                <br>
+                                <input type="text" class="form-control" id="lastname" placeholder="Last name" name ="lastname" >
+                            </div>
+                               
+                           
+                            <div class="form-floating mb-3">
+                                <label for="floatingText">E-mail</label>
+                                <br>
+                                <br>
+                                <input type="email" class="form-control" id="email" placeholder="E-mail" name ="email" >
+                            </div>
+                        
+                                    
+                       
+                            <div class="form-floating mb-3">
+                             
+                                <label for="floatingInput">Mobile Number</label>
+                                <br>
+                                <br>
+                                <input type="text" class="form-control" id="mobilenumber" placeholder="mobile number" name ="mno" >
+                            </div>
+                         
+                                    
+                        
+                            <div class="form-floating mb-4">
+                             
+                                <label for="floatingPassword">Password</label>
+                                <br>
+                                <br>
+                                <input type="password" class="form-control" id="password" placeholder="password" name ="password" >
+                            </div>
+                                   
+                            <div class="form-floating mb-4">
+                         
+                                <label for="floatingPassword">Confirm Password</label>
+                                <br>
+                                <br>
+                                <input type="password" class="form-control" id="confirmpassword" placeholder="confirm-password" name ="confirmpassword" >
+                            </div>
+                       
+                                    
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
+                            <p class="text-center mb-0">Already have an Account? <a href="/login">Sign In</a></p>
+      
+                        </form>-->
+      
+                        
+                            
+                      
+<!--       
+                    </div>
+                </div>
+            </div>
+        </div>   -->
+        <!-- Sign Up End -->
+    <!-- </div> -->
+      </section> 
+    <!-- <section class="sec"></section>
+    <script>
+        for(let i=1;i<=350;i++){
+            let box=document.createElement('div');
+            box.classList.add('box');
+            document.querySelector('.sec').appendChild(box);
+
+        }
+        function animateBx(){
+            let boxes=document.querySelectorAll('.box');
+            let num=math.floor(Math.random()*boxes.length);
+            boxes[num].classList.toggle('animate');
+        }
+        setInterval(animateBx);
+    </script> -->
+
+
+
+</body>
+</html>
+
+<% include('../layouts/footer.ejs') %>
+
+
+
+
+
+
