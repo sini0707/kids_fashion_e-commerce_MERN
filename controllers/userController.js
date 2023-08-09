@@ -6,11 +6,17 @@ const Category = require("../models/categoryModel");
 const bcrypt = require("bcrypt");
 const otpGenerator = require("otp-generator");
 const Cart = require("../models/cartModel");
+const Order = require("../models/orderModel");
+const twilio=require("twilio");
+const dotenv=require("dotenv");
+dotenv.config();
 
-const accountSid = "ACfa9e3512a75cb21f56f758eaee7f7057";
-const authToken = "8c28095e53d62d3a13fa7d9e0cb24117";
+const accountSid = process.env.accountSid;
+const authToken =process.env.authToken;
+const twilioNumber=process.env.twilioNumber;
 
-const twilio = require("twilio")(accountSid, authToken);
+
+const client = twilio(accountSid, authToken); 
 
 const OTPsaveFunction = async (email, otp) => {
   try {
@@ -92,11 +98,11 @@ const insertUser = async (req, res) => {
     console.log(otp);
     // Generate a random OTP
     // Send the OTP to the user's mobile number
-    // await twilio.messages.create({
-    //   body: `Your OTP: ${otp}`,
-    //   from: '+15417033702',
-    //   to: `+91${user.mobile}`,
-    // })
+    await twilio.messages.create({
+      body: `Your OTP: ${otp}`,
+      from:twilioNumber,
+      to: `+91${user.mobile}`,
+    })
 
     // Store the OTP and user data in the session
     req.session.otp = otp;
@@ -247,11 +253,11 @@ const forgotPasswordOtp = async (req, res) => {
     req.session.forgotOtp = otp;
     // Generate a random OTP
     //   Send the OTP to the user's mobile number
-    // await twilio.messages.create({
-    //   body: `Your OTP: ${otp}`,
-    //   from: '+15417033702',
-    //   to: `+91${user.mobile}`,
-    // })
+    await twilio.messages.create({
+      body: `Your OTP: ${otp}`,
+      from: twilioNumber,
+      to: `+91${User.mobile}`,
+    })
     req.session.email = userFound.email;
     const OTPsave = await OTPsaveFunction(userFound.email, otp);
 
@@ -315,11 +321,11 @@ const resendOtp = async (req, res) => {
   try {
     const otp = Math.floor(100000 + Math.random() * 900000);
     console.log(otp);
-    // await twilio.messages.create({
-    //     body: `Your OTP: ${otp}`,
-    //     from: '+15417033702',
-    //     to: `+91${user.mobile}`,
-    //   })
+    await twilio.messages.create({
+        body: `Your OTP: ${otp}`,
+        from: twilioNumber,
+        to: `+91${user.mobile}`,
+      })
 
     // Store the OTP and user data in the session
     req.session.otp = otp;
@@ -601,7 +607,8 @@ const displayProduct = async (req, res) => {
       .populate("category");
     console.log(products);
     res.render("shop", {
-      allProducts: products,
+      allcategory: products,
+      allProducts:products,
       currentPage: page,
       totalPages,
     });
@@ -644,6 +651,218 @@ const categoryPage = async (req, res) => {
   }
 };
 
+
+const loadCheckout = async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+
+    console.log("test1");
+    console.log(userId);
+
+    const user = await User.findOne({ _id: userId });
+    console.log(user);
+
+    const cart = await Cart.findOne({ userId: userId }).populate("product.productId").exec();
+    console.log("testing");
+    console.log(cart);
+
+    if (!cart || !cart.product) {
+      // If cart is null or cart.product is not available, redirect to 404 page or any other appropriate action
+      return res.render("404");
+    }
+
+    console.log("test");
+
+    let subTotal = 0;
+    for (let i = 0; i < cart.product.length; i++) {
+      subTotal += cart.product[i].total;
+    }
+
+    res.render("checkout", {
+      user: user,
+      cart,
+      grandTotal: subTotal, // Use the subTotal directly as the grandTotal
+      subTotal,
+      address: user.addresses,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.render("404");
+  }
+};
+
+const Checkout = async (req, res) => {
+  try {
+    
+   
+    const cart = await Cart.findOne({ userId: req.session.user_id })
+      .populate("product.productId")
+      .exec();
+    
+    var grandTotal = 0;
+    for (let i = 0; i < cart.product.length; i++) {
+      grandTotal += cart.product[i].productId.price * cart.product[i].quantity;
+    }
+
+    const newOrder = new orderId({
+      userId:req.session.user_id,
+      name: req.body.name,
+      email: req.body.email,
+      address: req.body.address,
+      phone: req.body.phone,
+      paymentMethod: req.body.payment,
+      orderItems: cart.product,
+      grandTotal: grandTotal,
+    });
+   
+    await newOrder.save();
+    const orderId = newOrder._id;
+   
+    // const deleteCart = await Cart.deleteOne({ userId:req.session.user_id});
+
+    res.redirect(`/viewOrderDetails?id=${orderId}`);
+  } catch (error) {
+    console.log(error.message);
+    res.render("404");
+  }
+};
+
+
+// to load user profile
+const userProfile = async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+console.log(userId,'......');
+    const userData = await User.findOne({ _id: userId });
+
+  console.log( userData);
+
+      
+      res.render("profile", );
+    
+  } catch (error) {
+    console.log(error.message);
+    // res.render('404')
+  }
+};
+
+
+//to add address for user profile
+const profileAddressAdd = async (req, res) => {
+  try {
+    console.log("hiii")
+   
+    const userId = req.session.user_id;
+    const user = await User.findOne({ _id: userId });
+    console.log(req.body.name,
+     req.body.mobileNumber,
+     req.body.address,
+      req.body.locality,
+      req.body.city,
+      req.body.pincode,
+      req.body.state,"hiiii");
+
+    user.addresses.push({
+      name: req.body.name,
+      mobileNumber:req.body.mobileNumber,
+      address: req.body.address,
+      locality:req.body.locality,
+      city:req.body.city,
+      pincode:req.body.pincode,
+      state:req.body.state,
+
+
+    });
+
+    await user.save();
+    // res.redirect("/profile?message=Address added successfully....");
+    res.status(200).json({ message: "Address added successfully." });
+  } catch (error) {
+    console.log(error);
+    // Redirect with an error message
+    // res.redirect("/profile?message=Failed to add address....");
+    res.status(500).json({ error: "Failed to add address." });
+  }
+};
+
+//to profile edit
+const profileEdit = async (req, res) => {
+  try {
+    const name = req.body.name;
+    const updationData = {
+      name:req.body.name,
+     mobileNumber:req.body.mobileNumber,
+    address:req.body.address,
+     locality: req.body.locality,
+      city:req.body.city,
+      pincode:req.body.pincode,
+      state:req.body.state
+      // name: req.body.name,
+      // email: req.body.email,
+      // phone: req.body.mobile,
+    };
+
+    const user = await User.updateOne(
+      {userId:req.session.user_id},
+      { $set: updationData }
+    );
+
+    res.redirect("/profile");
+  } catch (error) {
+    console.log(error);
+   
+  }
+};
+const editAddress = async (req, res) => {
+  try {
+    const name = req.body.name;
+    const userData = {
+      name: req.body.name,
+      address: req.body.address,
+      city: req.body.city,
+      locality:req.body.locality,
+      state:req.body.state,
+      phone:req.body.phone
+    };
+    const updateProfile = User.updateOne({ name: name }, { $set: userData });
+    res.redirect("/profile");
+  } catch (error) {
+    console.log(error);
+    
+  }
+};
+
+const loadOrder = async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+    const cart = await Cart.findOne({ userId: userId }).populate("product.productId");
+      // await User.save();
+
+    res.render("checkOut", {cart});
+  } catch (error) {
+    console.log(error.message);
+    
+  }
+};
+
+const loadMyOrder = async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.session.user_Id })
+      .populate("orderItems.productId")
+      .sort({ dateOrdered: -1 }) // Sort by dateOrdered in descending order
+      .exec();
+
+    res.render("myOrder", { orders });
+  } catch (error) {
+    console.log(error.message);
+    res.render("404");
+  }
+};
+
+
+
+
+
 module.exports = {
   loadRegister,
   insertUser,
@@ -662,9 +881,19 @@ module.exports = {
   getShop,
   getCategory,
   singleProductLoad,
-
   addToCart,
   getCart,
   displayProduct,
   categoryPage,
+  loadCheckout,
+  Checkout,
+  userProfile,
+  profileAddressAdd,
+  profileEdit,
+  editAddress ,
+  loadOrder,
+  loadMyOrder
+  
+
+
 };

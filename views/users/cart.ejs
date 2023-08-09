@@ -29,9 +29,9 @@
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -97,7 +97,7 @@
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
+                            <li><a href="/home">Home</a></li>
                             <li class="active"><a href="/shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
@@ -178,10 +178,19 @@
                                             </td>
                                             <td class="quantity__item">
                                               <div class="quantity">
-                                                <div class="pro-qty-2">
-                                                    <p> <%= item.quantity %></p>
+                                                <!-- <div class="qty-prod">
+                                                    <span class="material-symbols-outlined decrement" style="cursor: pointer;">remove</span>
+                                                    <p class="quantityValue"  data-id="<%= item.carted._id %>" ><%= item.quantity %></p>
+                                                    <span class="material-symbols-outlined increment" style="cursor: pointer;">add</span>
+                                                </div> -->
+                                                <div class="qty-prod">
+                                                    <span class="material-symbols-outlined decrement" style="cursor: pointer;">remove</span>
+                                                    <p class="quantityValue" data-id="<%= item.carted._id %>"><%= item.quantity %></p>
+                                                    <span class="material-symbols-outlined increment" style="cursor: pointer;">add</span>
                                                 </div>
-                                              </div>
+                                                  
+                                            
+                                            </div>
                                             </td>
                                             <td class="cart__price">$ <%= item.quantity * item.carted.price %></td>
                                             <td class="cart__close">
@@ -225,9 +234,11 @@
                         <h6>Cart total</h6>
                         <ul>
                             <li>Subtotal <span><%=totalPrice%></span></li>
-                            <li>Total <span><%=totalPrice%></span></li>
+                            <li>GrandTotal <span><%=totalPrice%></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="/checkOut" class="primary-btn">Proceed to checkout</a>
+                        <!-- <a href="/checkOut?cartData=<%= JSON.stringify(data) %>">Proceed to checkout</a> -->
+
                     </div>
                 </div>
             </div>
@@ -321,7 +332,7 @@
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ productId }) // Send the product ID in the request body
+            body:JSON.stringify({ productId }) // Send the product ID in the request body
           })
           .then(response => {
             if (!response.ok) {
@@ -349,6 +360,73 @@
             deleteCartItem(productId);
           });
         });
+
+        // const quantityElement = document.querySelectorAll('.quantityValue');
+        const decrementButtons = document.querySelectorAll('.decrement');
+        const incrementButtons = document.querySelectorAll('.increment');
+
+          // Function to update the quantity value and ensure it is not less than 1
+    function updateQuantityValue(event,value) {
+        const row=event.target.closest('tr');
+        const quantityElement=row.querySelector('.quantityValue');
+        const newValue = Math.max(parseInt(value), 1); // Ensure the value is not less than 1
+        quantityElement.innerText = newValue;
+        const qtyValue=quantityElement.innerText;
+        updateQuantity(qtyValue);
+    }
+    
+    function updateQuantity(qtyValue,prodId) {
+        console.log(prodId)
+        let quantity=qtyValue;
+        let productId=prodId;
+        fetch(`/updateQty`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({ quantity,productId }) // Send the product ID in the request body
+          }).then(async(response)=>{
+            res=await response.json();
+            location.reload()
+          }).catch((err)=>{
+            console.log(err);
+          })
+        
+    }
+      // Handle decrement button click
+      decrementButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    // Get the productId from the data-id attribute of the quantityValue element
+    const productId = event.target.closest('.quantity__item').querySelector('.quantityValue').dataset.id;
+
+    const currentValue = event.target.nextElementSibling.innerText;
+    const newValue = parseInt(currentValue) - 1;
+    updateQuantityValue(event, newValue, productId); // Pass the productId to updateQuantityValue function
+  });
+});
+
+    // Handle increment button click
+    incrementButtons.forEach(button => {
+  button.addEventListener('click', (event) => {
+    // Get the productId from the data-id attribute of the quantityValue element
+    const productId = event.target.closest('.quantity__item').querySelector('.quantityValue').dataset.id;
+
+    const currentValue = event.target.previousElementSibling.innerText;
+    const newValue = parseInt(currentValue) + 1;
+    updateQuantityValue(event, newValue, productId); // Pass the productId to updateQuantityValue function
+  });
+});
+function updateQuantityValue(event, value, productId) {
+  const row = event.target.closest('tr');
+  const quantityElement = row.querySelector('.quantityValue');
+  const newValue = Math.max(parseInt(value), 1); // Ensure the value is not less than 1
+  quantityElement.innerText = newValue;
+  const qtyValue = quantityElement.innerText;
+  updateQuantity(qtyValue, productId); // Pass the productId to updateQuantity function
+}
+
+
+
       </script>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

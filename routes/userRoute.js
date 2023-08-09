@@ -23,6 +23,7 @@ user_route.set('views','./views/users');
 
 
 const userController=require('../controllers/userController');
+const paymentController=require('../controllers/paymentController')
 
 user_route.use(session({
     secret:config.sessionSecret,
@@ -58,9 +59,10 @@ user_route.get('/single-product',userController.singleProductLoad);
 user_route.post('/addtocart',userController.addToCart);
 user_route.get('/addtocart',userController.addToCart);
 user_route.get('/cart',userController.getCart);
+user_route.patch('/updateQty',cartController.updateQuantity);
+
 // user_route.delete("/delete_item",cartController.deleteProduct);
 user_route.delete("/delete_item",cartController.deleteItem);
-
 
 user_route.post('/search',userController.displayProduct);
 user_route.post('/add-to-wishlist',wishlistController.addWishList);
@@ -68,6 +70,19 @@ user_route.get('/wishList',wishlistController.getWishList);
 user_route.delete('/remove-product-wishlist',wishlistController.removeProductWishlist);
 
 user_route.get('/categoryShop',userController.categoryPage);
+
+user_route.get('/checkout',userController.loadCheckout);
+user_route.get('/profile',userController.userProfile);
+user_route.post('/profile',userController.profileAddressAdd);
+user_route.get('/checkOut',auth.isLogin,userController.loadOrder);
+
+user_route.post('/',userController.editAddress);
+
+user_route.get('/orderDetails',auth.isLogin,paymentController.orderDetailsLoad);
+user_route.post('/checkOut', paymentController.placeOrder);
+
+user_route.get('/myOrders',auth.isLogin,userController.loadMyOrder);
+
 
 
 

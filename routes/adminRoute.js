@@ -80,6 +80,9 @@ admin_route.post(
  admin_route.get('/editProductList1', productController.editProductList);
 admin_route.post('/editProductList1', multipleUpload, productController.updateProductList);
 admin_route.get('/deleteProduct',productController.deleteProduct);
+admin_route.get('/orders',adminController.ordersLoad);
+
+
 
   admin_route.get('/logout',adminController.logout);
 

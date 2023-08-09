@@ -1,0 +1,255 @@
+
+<%- include ('../layouts/header.ejs') %>
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KidZ Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+       
+
+        button {
+          width: 100px;
+          height: 40px;
+          border: 3px solid #315cfd;
+          border-radius: 45px;
+          transition: all 0.3s;
+          cursor: pointer;
+          background: white;
+          font-size: 1.2em;
+          font-weight: 550;
+          font-family: 'Montserrat', sans-serif;
+        }
+        
+        button:hover {
+          background: #315cfd;
+          color: white;
+          font-size: 1.5em;
+        }
+        
+        
+            </style>
+
+
+<body>
+    <body>
+       
+        <!-- Offcanvas Menu Begin -->
+        
+        <div class="offcanvas-menu-overlay"></div>
+        <div class="offcanvas-menu-wrapper">
+            <div class="offcanvas__option">
+                <div class="offcanvas__links">
+                    <a href="/signup">Sign in</a>
+                    <a href="/login">Logout</a>
+                </div>
+                <div class="offcanvas__top__hover">
+                    <span>My Profile<i class="arrow_carrot-down"></i></span>
+                    <ul>
+                        <li>My Profile</li>
+                        <li>Orders</li>
+                        <li>Wishlist</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="offcanvas__nav__option">
+                <a href="#" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
+                <a href="/wishList"><img src="/img/icon/heart.png" alt=""></a>
+                <a href="/cart"><img src="/img/icon/cart.png" alt=""> <span>0</span></a>
+                <div class="price">$0.00</div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+            <div class="offcanvas__text">
+                <p>Free shipping, 30-day return or refund guarantee.</p>
+            </div>
+        </div>
+        <!-- Offcanvas Menu End -->
+    
+        <!-- Header Section Begin -->
+        <header class="header">
+            <div class="header__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="header__top__left">
+                                <p>Free shipping, 30-day return or refund guarantee.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <div class="header__top__right">
+                                <div class="header__top__links">
+                                    <!-- <a href="/signup">Signup</a> -->
+                                    <!-- <a href="/login">Login</a> -->
+                                    <!-- <a href="/logout">Logout</a> -->
+    
+                                </div>
+                                <div class="header__top__hover">
+                                    <span>My Account <i class="arrow_carrot-down"></i></span>
+                                    <ul>
+                                        <li><a href="/profile">My Profile</a></li>
+                                        <li><a href="/orders">Orders</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
+                                        <li><a href="/logout">Logout</a></li>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="header__logo">
+                            <a href="/users/home.ejs"><img src="/img/kid-logo.jpg" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <nav class="header__menu mobile-menu">
+    
+    
+                            <nav>
+                                <!-- Your regular navigation links here -->
+                                
+                                
+                              </nav>
+                              <ul>
+                                <li class="active"><a href="/home">Home</a></li>
+                                <li><a href="/shop">Shop</a></li>
+                                <li><a href="#">Pages</a>
+                                    <ul class="dropdown">
+                                        <li><a href="/about.html">About Us</a></li>
+                                        <li><a href="/shop">Shop Details</a></li>
+                                        <li><a href="/cart">Shopping Cart</a></li>
+                                        <li><a href="/checkOut">Check Out</a></li>
+                                        <!-- <li><a href="/blog-details.html">Blog Details</a></li> -->
+                                    </ul>
+                                </li>
+
+
+    <section class="checkout spad">
+        <div class="container">
+            
+            <div class="checkout__form">
+                <!-- <img src="/img/profile-picture-icon-0.jpg" alt="Profile Picture" width="50" height="50"> -->
+                
+                <form action="/profile" method="post">
+                    
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            
+                            <!-- <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+                            here</a> to enter your code</h6> -->
+                            <h6 class="checkout__title">Address Details</h6>
+                          
+                            <!-- <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p> Name<span>*</span></p>
+                                        <input type="text" name="Name">
+                                    </div>
+                                </div>
+
+                            </div> -->
+
+                            <div class="checkout__input">
+                                <p>Name<span>*</span></p>
+                                <input type="text" placeholder="Name" name="name" class="checkout__input__add">
+                            </div>
+                          
+                            <div class="checkout__input">
+                                <p>Address<span>*</span></p>
+                                <input type="text" name="address" placeholder="Street Address" class="checkout__input__add">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Town/City<span>*</span></p>
+                                <input type="text" name="city">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Locality<span>*</span></p>
+                                <input type="text" name="locality">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Country/State<span>*</span></p>
+                                <input type="text" name="state">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Postcode / ZIP<span>*</span></p>
+                                <input type="text" name="pincode">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" name="mobileNumber">
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <div class="checkout__input__checkbox">
+                              
+                               
+                            </div>
+                           
+<form id="addressForm">
+    
+
+    <button type="submit">Save </button>
+</form>
+
+<p id="message"></p>
+
+<script>
+document.getElementById("addressForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch("/profile", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById("message").textContent = data.message;
+            // Optionally, clear the form or take other actions on success
+        } else {
+            document.getElementById("message").textContent = data.error;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
+</script>
+
+
+                             
+
+
+                            </body>
+                            </html>

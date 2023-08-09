@@ -149,6 +149,22 @@ const logout = (req, res) => {
 
 
 
+//to display the page of order list
+const ordersLoad = async (req, res) => {
+  try {
+    const orders = await orders.find()
+      .populate('orderItems.productId')
+      .sort({ dateOrdered: -1 })
+      .exec();
+
+    res.render("orders", { orders });
+  } catch (error) {
+    console.log(error.message);
+    res.render("404");
+  }
+};
+
+
 
 
 
@@ -164,6 +180,7 @@ module.exports = {
     loadEditUser,
     updateUser,
     unBlockUser,
-    logout
+    logout,
+    ordersLoad 
 
 }

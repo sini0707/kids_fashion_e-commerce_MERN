@@ -1,4 +1,76 @@
 <%- include ('../layouts/header.ejs') %>
+<style>
+    /* Example styling, modify as needed */
+    .shopping__cart__table {
+      margin-bottom: 30px;
+    }
+  
+    .product__cart__item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #ebebeb;
+    }
+  
+    .product__cart__item__pic img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+  
+    .product__cart__item__text {
+      width: 100%;
+    }
+  
+    .product-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+    }
+  
+    .font-xs {
+      font-size: 14px;
+      color: #666;
+    }
+  
+    .price span {
+      font-size: 16px;
+      font-weight: bold;
+      color: #FF5722;
+    }
+  
+    .btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+    }
+  
+    .btn.cool-button {
+      background-color: #4CAF50;
+    }
+  
+    .btn.cool-button:hover {
+      background-color: #45a049;
+    }
+  
+    .action {
+      cursor: pointer;
+    }
+    
+  .wishlist-count {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+</style>
+
+  
+  
 
 <section class="shopping-cart spad">
     <div class="container">
@@ -10,10 +82,10 @@
                         <thead>
                             <tr>
                                 <th>Product</th>
-                                <th>Quantity</th>
+                                <!-- <th>Quantity</th> -->
                                 <th>Total</th>
-                                <th scope="col">Action</th>
-                                <th scope="col">Remove</th>
+                                <!-- <th scope="col">Action</th> -->
+                                <!-- <th scope="col">Remove</th> -->
                                 <th></th>
                             </tr>
                         </thead>
@@ -22,7 +94,7 @@
                             <tr>
                                 <td class="product__cart__item">
                                     <div class="product__cart__item__pic">
-                                        <img src="/product-images/<%=item.wishListed.image[0]%>">
+                                        <img src="/product-images/<%=item.wishListed.images[0]%>">
                                     </div>
                                     <div class="product__cart__item__text">
                                         <h5 class="product-name"><a href="/singleProduct?id=<%=item.wishListed._id %>"><%=item.wishListed.name%></a></h5>
@@ -32,13 +104,13 @@
                                       
                                     </div>
                                 </td>
-                                <td class="text-right" data-title="Cart">
+                                <!-- <td class="text-right" data-title="Cart">
                                     <button class="btn btn-sm cool-button" onclick="addtocart('<%=item.productId%>')">
                                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     </button>
                 
-                                  </td>
-                                  <td class="action" data-title="Remove" onclick="removeFromWishList('<%=item.productId%>')"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                  </td> -->
+                                  <!-- <td class="action" data-title="Remove" onclick="removeFromWishList('<%=item.productId%>')"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td> -->
                                   
                                 </tr>
                                 <% }); %>
@@ -48,7 +120,8 @@
         
                       </div>
                    <% }else{%>
-      
+                    
+                    <h1>No wishlist</h1>
       
                     <!-- <div style="display: flex; justify-content: center;">
                       <div class="col-md-lg-5">
@@ -61,7 +134,10 @@
                   
                     <%  } %>
       
-                   
+                </div>   
+                <div class="wishlist-count">
+                    Wishlist Count: <%= wishlistProducts.length %>
+                  </div>     
       
 </section>
             

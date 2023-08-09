@@ -26,7 +26,44 @@ const userSchema = new mongoose.Schema({
     is_blocked:{
         type:Boolean,
         default:false,
-    }
+    },
+
+
+    addresses: [
+        {
+          name: {
+            type: String,
+            required: true,
+          },
+          mobileNumber: {
+            type: String,
+            required: true,
+          },
+          address: {
+            type: String,
+            required: true,
+          },
+          locality: {
+            type: String,
+            required: true,
+          },
+          city: {
+            type: String,
+            required: true,
+          },
+          pincode: {
+            type: String,
+            required: true,
+          },
+          state: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
+    });
+    
+   
     // is_admin:{
     //     type:Number,
     //     required:true
@@ -36,6 +73,6 @@ const userSchema = new mongoose.Schema({
     //     default:0
     // }
    
-});
+
 
 module.exports = mongoose.model('User',userSchema);

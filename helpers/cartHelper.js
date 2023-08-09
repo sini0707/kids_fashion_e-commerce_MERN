@@ -4,7 +4,6 @@ const product = require('../models/productModel');
 
 
 
-
 const deleteProduct =  async (data) => {
     const cartId = data.cartId;
     const proId = data.proId;
@@ -30,8 +29,16 @@ const deleteProduct =  async (data) => {
       }
     });
   }
+
+  
+
+
+
+
+
   module.exports ={
 
 
     deleteProduct,
+    // updateQuantity
   }

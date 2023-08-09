@@ -23,11 +23,11 @@ const getWishListCount = async (userId) => {
 
   const getWishListProducts = async (userId) => {
     try {
-      return new Promise((resolve, reject) => {
-        wishListModel.aggregate([
+      return new Promise(async(resolve, reject) => {
+        const test = await wishListModel.aggregate([
           {
             $match: {
-              user: new ObjectId(userId),
+              user: new ObjectId(userId.id),
             },
           },
           {
@@ -40,7 +40,7 @@ const getWishListCount = async (userId) => {
             },
           },
           {
-            $lookup: {
+            $lookup: { 
               from: "products",
               localField: "productId",
               foreignField: "_id",
@@ -54,10 +54,13 @@ const getWishListCount = async (userId) => {
               wishListed: { $arrayElemAt: ["$wishListed", 0] },
             },
           },
-        ]).then((wishListed) => {
+        ])
+        .then((wishListed) => {
           resolve(wishListed);
         });
       });
+      
+
     } catch (error) {
       console.log(error.message);
     }

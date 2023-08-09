@@ -1,0 +1,101 @@
+
+<%- include ('../layouts/admin-Header.ejs') %>
+<main id="main"></main>
+<%-include ('../partials/admin-header.ejs') %>
+
+<section class="container-fluid">
+        
+    <div class="card mb-4">
+        <div class="card-header justify-content-between align-items-center d-flex">
+            <h6 class="card-title m-0">Order List</h6>
+            <div class="dropdown">
+                <button class="btn btn-link dropdown-toggle dropdown-toggle-icon fw-bold p-0" type="button"
+                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="ri-more-2-line"></i>
+                </button>
+                <ul class="dropdown-menu dropdown" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+  <!-- User listing Actions-->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <form class="bg-light rounded px-3 py-1 flex-shrink-0 d-flex align-items-center">
+        <input class="form-control border-0 bg-transparent px-0 py-2 me-5 fw-bolder" type="search"
+          placeholder="Search" aria-label="Search">
+        <button class="btn btn-link p-0 text-muted" type="submit"><i class="ri-search-2-line"></i></button>
+    </form>
+    <div class="d-flex justify-content-end">
+        <a href="#" class="btn btn-outline-secondary btn-sm text-body me-2"><i class="ri-download-fill align-bottom"></i> Export Users</a>
+        <a class="btn btn-sm btn-primary" href="#"><i class="ri-add-circle-line align-bottom"></i> New User</a>
+    </div>
+</div>
+<!-- /user listing Actions-->
+
+<!-- User Listing Table-->
+<div class="table-responsive">
+    <table class="table m-0 table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>address</th>
+                 <th>orderItems</th> 
+                <th>grandTotal</th>
+                <th>status</th>
+                <th>paymentMetho</th>
+                <th>dateOrdered</th>
+                <th>deliveredDate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orderItems.forEach((Order) => { %>
+            <tr>
+              
+                <td><%= order.name %></td>
+                <td class="text-muted"><%=order.address %></td>
+                <td class="text-muted"><%= order.orderItems %></td>
+                <td class="text-muted"><%= order.grandTotal %></td>
+                <td class="text-muted"><%= order.status %></td>
+                <td class="text-muted"><%= order.paymentMetho %></td>
+                <td class="text-muted"><%= order.dateOrdered %></td>
+                <td class="text-muted"><%= order.deliveredDate %></td>
+
+                <td>
+                    
+                    
+                    <img src="../product-images/<%= product.images[0] %>" alt="" width="50" height="50">
+                </td>
+                <td style="display: flex;gap: 2px;">
+                          
+                            <!-- <a type="button" class="btn btn-danger btn-sm mb-2"  href="/admin/editProductList1?id=<%= product._id %>">Edit</a>
+                            
+                            <a type="button" class="btn btn-success btn-sm mb-2" href="/admin/deleteProduct?id=<%= product._id %>">Delete</a>
+                           
+                        -->
+
+                       
+                       
+                
+                </td>
+            </tr>
+            <% }); %>
+            
+        </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+            <%-include ('../partials/admin-sidebar.ejs') %>
+
+        </main>
+        
+        <%- include('../layouts/admin-Footer.ejs') %>

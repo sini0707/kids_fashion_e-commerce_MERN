@@ -1,0 +1,452 @@
+
+<%- include ('../layouts/header.ejs') %>
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>KidZ Fashion | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <style>
+
+button {
+  width: 100px;
+  height: 60px;
+  border: 3px solid #315cfd;
+  border-radius: 45px;
+  transition: all 0.3s;
+  cursor: pointer;
+  background: white;
+  font-size: 1.2em;
+  font-weight: 550;
+  font-family: 'Montserrat', sans-serif;
+}
+
+button:hover {
+  background: #315cfd;
+  color: white;
+  font-size: 1.5em;
+}
+
+
+button.edit-address {
+  width: 100px; /* Adjust the width to your preference */
+  height: 60px; /* Adjust the height to your preference */
+  font-size: 1em; /* Adjust the font size to your preference */
+}
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+ <!-- Page Preloder -->
+ <div id="preloder">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Offcanvas Menu Begin -->
+  <div class="offcanvas-menu-overlay"></div>
+  <div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__option">
+      <div class="offcanvas__links">
+        <a href="#">Sign in</a>
+        <a href="#">Login</a>
+        <a href="/login">Logout</a>
+      </div>
+      <!-- <div class="offcanvas__top__hover">
+              <span>Usd <i class="arrow_carrot-down"></i></span>
+              <ul>
+                  <li>USD</li>
+                  <li>EUR</li>
+                  <li>USD</li>
+              </ul>
+          </div> -->
+    </div>
+    <div class="offcanvas__nav__option">
+      <a href="/shop" class="search-switch"
+        ><img src="img/icon/search.png" alt=""
+      /></a>
+      <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+      <a href="/cart"
+        ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
+      >
+      <div class="price">$0.00</div>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__text">
+      <p>Free shipping, 30-day return or refund guarantee.</p>
+    </div>
+  </div>
+  <!-- Offcanvas Menu End -->
+
+  <!-- Header Section Begin -->
+  <header class="header">
+    <div class="header__top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-7">
+            <div class="header__top__left">
+              <p>Free shipping, 30-day return or refund guarantee.</p>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-5">
+            <div class="header__top__right">
+              <div class="header__top__links">
+                <a href="/signup">Signup</a>
+                <a href="/login">Login</a>
+                <a href="/login">Logout</a>
+              </div>
+              <!-- <div class="header__top__hover">
+                              <span>Usd <i class="arrow_carrot-down"></i></span>
+                              <ul>
+                                  <li>USD</li>
+                                  <li>EUR</li>
+                                  <li>USD</li>
+                              </ul>
+                          </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+          <div class="header__logo">
+            <a href="./index.html"
+              ><img src="/img/kid-logo.jpg" alt="" width="150" height="100"
+            /></a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+          <nav class="header__menu mobile-menu">
+            <ul>
+              <li><a href="/home">Home</a></li>
+              <li class="active"><a href="/shop">Shop</a></li>
+              <li>
+                <a href="#">Pages</a>
+                <ul class="dropdown">
+                  <li><a href="./about.html">About Us</a></li>
+                  <li><a href="./shop-details.html">Shop Details</a></li>
+                  <li><a href="./shopping-cart.html">Shopping Cart</a></li>
+                  <li><a href="./checkout.html">Check Out</a></li>
+                  <li><a href="./blog-details.html">Blog Details</a></li>
+                </ul>
+              </li>
+              <li><a href="./blog.html">Blog</a></li>
+              <li><a href="./contact.html">Contacts</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-3 col-md-3">
+          <div class="header__nav__option">
+            <a href="/search" class="search-switch"
+              ><img src="img/icon/search.png" alt=""
+            /></a>
+            <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+            <a href="/cart"
+              ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
+            >
+            <div class="price">
+              <% if (typeof cartCount !== 'undefined') { %>
+              <span><%= cartCount %></span>
+              <% } else { %>
+              <span>0</span>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+  </header>
+  <!-- Header Section End -->
+
+  <!-- Breadcrumb Section Begin -->
+  <section class="breadcrumb-option">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb__text">
+            <h4>Shop</h4>
+            <div class="breadcrumb__links">
+              <a href="/home">Home</a>
+              <a href="/shop">shop</a>
+              <span>Checkout</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="checkout spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-6">
+                <!-- Address Details Form -->
+                <div class="checkout__form">
+                    <form action="#" id="addressForm">
+                      <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                         
+                          <% user.addresses.forEach(function(address) { %>
+                            <!-- <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+                            here</a> to enter your code</h6> -->
+                            <h6 class="checkout__title">Address Details</h6>
+                          
+                            <div class="checkout__input">
+                                <p>Name<span>*</span></p>
+                                <input type="text" placeholder="Name" name="name" class="checkout__input__add" value="<%= address.name %>">
+                            </div>
+                          
+                            <div class="checkout__input">
+                                <p>Address<span>*</span></p>
+                                <input type="text" name="address" placeholder="Street Address" class="checkout__input__add" value="<%= address.address %>">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Town/City<span>*</span></p>
+                                <input type="text" name="city"value="<%= address.city %>">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Locality<span>*</span></p>
+                                <input type="text" name="locality" value="<%= address.locality %>">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Country/State<span>*</span></p>
+                                <input type="text" name="state"value="<%= address.state %>">
+                            </div>
+                            <div class="checkout__input">
+                                <p>Postcode / ZIP<span>*</span></p>
+                                <input type="text" name="pincode"value="<%= address.pincode %>">
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="checkout__input">
+                                        <p>Phone<span>*</span></p>
+                                        <input type="text" name="mobileNumber"value="<%= address.mobileNumber%>">
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <% }); %>
+                        <!-- <button type="submit">Save </button> -->
+                        <button>Edit </button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="checkout__order">
+                  <h4 class="order__title">Your order</h4>
+                  <div class="checkout__order__products">Product <span>Total</span></div>
+                  
+                      <% cart.product.forEach(item => { %>
+                        <ul class="checkout__total__products">
+                        <li>
+                          <%= item.productId.name%> <span><%= item.price%></span><br>
+                          
+                          
+                        </li>
+                        </ul>
+                      <% }); %>
+                   
+                    
+               
+                 
+                      <ul class="checkout__total__all">
+                        <li>Subtotal <span><%= cart.grandTotal%></span></li>
+                        <li>GrandTotal <span> <%= cart.grandTotal %> </span></li>
+                    </ul>
+                    <div class="checkout__input__checkbox">
+                        <label for="acc-or">
+                            <!-- Create an account? -->
+                            <input type="checkbox" id="acc-or">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <p></p>
+                    <form action="" method="post">
+                     
+                 
+                  
+                    <div class="checkout__input__checkbox">
+                        <label for="payment">
+                           Cash on delivery
+                            <input type="checkbox" id="payment">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="checkout__input__checkbox">
+                        <label for="paypal">
+                            Paypal
+                            <input type="checkbox" id="paypal">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                  <button type="submit" class="site-btn">PLACE ORDER</button>
+                </form>
+              </div>
+          </div>
+    </div>
+</section>
+
+<p id="message"></p>
+
+<script>
+document.getElementById("addressForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch("/profile", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            document.getElementById("message").textContent = data.message;
+        } else {
+            document.getElementById("message").textContent = data.error;
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+    function calculateSubtotal(cartData) {
+        let subtotal = 0;
+        cartData.forEach(item => {
+            subtotal += item.quantity * item.carted.price;
+        });
+        return subtotal.toFixed(2); // Format the subtotal as needed
+    }
+
+    function calculateGrandTotal(cartData) {
+        // You might want to add taxes, shipping, etc. to the subtotal for the grand total
+        return calculateSubtotal(cartData);
+    }
+
+
+</script>
+
+<footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer__about">
+            <div class="footer__logo">
+              <!-- <a href="#"><img src="img/footer-logo.png" alt=""></a> -->
+            </div>
+            <p>
+              The customer is at the heart of our unique business model, which
+              includes design.
+            </p>
+            <a href="#"><img src="img/payment.png" alt="" /></a>
+          </div>
+        </div>
+        <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+          <div class="Dress Fashion">
+            <h6>Shopping</h6>
+            <ul>
+              <li><a href="/home">BOYS Clothing Collections</a></li>
+              <!-- <li><a href="#">Trending Shoes</a></li>
+                          <li><a href="#">Accessories</a></li>
+                          <li><a href="#">Sale</a></li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-6">
+          <div class="footer__widget">
+            <h6>Shopping</h6>
+            <ul>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Payment Methods</a></li>
+              <li><a href="#">Delivary</a></li>
+              <li><a href="#">Return & Exchanges</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+          <div class="footer__widget">
+            <h6>NewLetter</h6>
+            <div class="footer__newslatter">
+              <p>
+                Be the first to know about new arrivals, look books, sales &
+                promos!
+              </p>
+              <form action="#">
+                <input type="text" placeholder="Your email" />
+                <button type="submit">
+                  <span class="icon_mail_alt"></span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="footer__copyright__text">
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <p>
+              Copyright ©
+              <script>
+                document.write(new Date().getFullYear());
+              </script>
+              2023 All rights reserved | This template is made with
+              <i class="fa fa-heart-o" aria-hidden="true"></i> by
+              <a href="localhost:5000/home" target="_blank">KidZ-Fashion</a>
+            </p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+
+
+ <!-- Js Plugins -->
+ <script src="js/jquery-3.3.1.min.js"></script>
+ <script src="js/bootstrap.min.js"></script>
+ <script src="js/jquery.nice-select.min.js"></script>
+ <script src="js/jquery.nicescroll.min.js"></script>
+ <script src="js/jquery.magnific-popup.min.js"></script>
+ <script src="js/jquery.countdown.min.js"></script>
+ <script src="js/jquery.slicknav.js"></script>
+ <script src="js/mixitup.min.js"></script>
+ <script src="js/owl.carousel.min.js"></script>
+ <script src="js/main.js"></script>
+</body>
+</html>
+
+<%- include ('../layouts/footer.ejs') %>

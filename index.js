@@ -1,21 +1,22 @@
 const mongoose=require("mongoose")
 const path=require("path");
-//const express = require('express');
-// const adminRoute = require('./adminRoute');
-
 
 const express =require("express"); 
 const session=require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-mongoose.connect("mongodb://127.0.0.1:27017/KidzFashion");
 const app=express();
+mongoose.connect("mongodb://127.0.0.1:27017/KidzFashion");
+
+
+const dotenv=require('dotenv');
+dotenv.config({path:"./.env"})
 
 const userRoute=require('./routes/userRoute');
 //global middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
@@ -47,6 +48,6 @@ app.use('/',userRoute);
 
 
 
-app.listen(5000,function(){
-    console.log("server is running.....");
+app.listen(process.env.PORT,()=>{
+    console.log(`server started at http://localhost:${process.env.PORT}`);
 })  

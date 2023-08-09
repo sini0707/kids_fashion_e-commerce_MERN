@@ -2381,6 +2381,10 @@ ol {
 	width: 10px;
 	cursor: pointer;
 }
+.qty-prod{
+	display: flex;
+	gap: 10px;
+}
 
 .shopping__cart__table table tbody tr td.cart__price {
 	color: #111111;
