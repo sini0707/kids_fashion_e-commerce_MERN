@@ -19,7 +19,7 @@ const getWishList = async (req, res) => {
         // count,
         wishlistProducts,
         wishlistCount,
-      });
+      }); 
     });
   }
 

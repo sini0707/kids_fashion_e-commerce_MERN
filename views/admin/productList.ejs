@@ -90,11 +90,21 @@
                                     <td style="display: flex;gap: 2px;">
                                               
                                                 <a type="button" class="btn btn-danger btn-sm mb-2"  href="/admin/editProductList1?id=<%= product._id %>">Edit</a>
-                                                
-                                                <a type="button" class="btn btn-success btn-sm mb-2" href="/admin/deleteProduct?id=<%= product._id %>">Delete</a>
-                                               
-                                           
-            
+                                                <!-- ...other code... -->
+
+
+    <!-- ...other product display code... -->
+    
+    <% if (product.is_listed==false) { %>
+      <a type="button" class="btn btn-danger btn-sm mb-2" href="/admin/UnListProduct/<%= product._id %>">UnList</a>
+    <% } else { %>
+      <a type="button" class="btn btn-success btn-sm mb-2" href="/admin/AddListProduct/<%= product._id %>">AddList</a>
+    <% } %>
+    
+
+  
+  <!-- ...other code... -->
+  
                                             <!-- <button class="btn btn-link dropdown-toggle dropdown-toggle-icon fw-bold p-0" type="button"
                                                 id="dropdownOrder-0" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="ri-more-2-line"></i>

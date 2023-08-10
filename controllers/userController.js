@@ -847,9 +847,10 @@ const loadOrder = async (req, res) => {
 
 const loadMyOrder = async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.session.user_Id })
+    const userId=req.session.user_id
+    const orders = await Order.find({ userId: req.session.user_id })
       .populate("orderItems.productId")
-      .sort({ dateOrdered: -1 }) // Sort by dateOrdered in descending order
+      .sort({ dateOrdered: -1 })
       .exec();
 
     res.render("myOrder", { orders });
@@ -858,6 +859,8 @@ const loadMyOrder = async (req, res) => {
     res.render("404");
   }
 };
+
+
 
 
 

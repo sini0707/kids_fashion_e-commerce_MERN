@@ -29,6 +29,10 @@ const loadProducts = async (req, res) => {
 ///sunmit add product
 
 const createProduct = async (req, res) => {
+  var arrImages = [];
+        for (let i = 0; i < req.files.length; i++) {
+            arrImages[i] = req.files[i].filename;
+        }
   const name = req.body.name;
   const description = req.body.description;
 
@@ -44,9 +48,10 @@ const createProduct = async (req, res) => {
   const newProduct = new Product({
     name,
     description,
-    images,
+   
     category,
     price,
+    images: arrImages,
   });
 
   newProduct
@@ -129,17 +134,44 @@ const updateProductList = async (req, res) => {
   }
 };
 
-const deleteProduct = async (req, res) => {
+
+
+// const deleteProduct = async (req, res) => {
+//   try {
+//     const id = req.query.id;
+
+//     const product = await Product.findByIdAndDelete(id);
+
+//     res.redirect("/admin/productList");
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
+const AddListProduct = async (req, res) => {
   try {
     const id = req.query.id;
-
-    const product = await Product.findByIdAndDelete(id);
-
+    await Product.findByIdAndUpdate({ _id: id }, { $set: { is_listed : true } });
     res.redirect("/admin/productList");
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
+
+ 
+
+const UnListProduct = async (req, res) => {
+  try {
+    const id = req.query.id;
+    await Product.findByIdAndUpdate({ _id: id }, { $set: { is_listed: false } });
+    res.redirect("/admin/productList");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
 
 
 
@@ -149,6 +181,9 @@ module.exports = {
   createProduct,
   editProductList,
   updateProductList,
-  deleteProduct,
+  AddListProduct,
+  UnListProduct
   
+ 
+    
 };

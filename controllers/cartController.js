@@ -14,8 +14,8 @@ const deleteItem = async (req, res) => {
     const userId = req.session.user_id;
     const { productId } =  req.body;
     
-    Cart.findOneAndUpdate(
-      { userId: userId },
+    Cart.findOneAndUpdate( 
+      { userId: userId }, 
       { $pull: { product: { productId: productId } } },
       { new: true }
     )

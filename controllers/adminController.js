@@ -1,5 +1,6 @@
 const Admin=require("../models/adminModel");
  const User=require("../models/userModel");
+ const Order = require('../models/orderModel')
 
 //load login page
 
@@ -152,15 +153,16 @@ const logout = (req, res) => {
 //to display the page of order list
 const ordersLoad = async (req, res) => {
   try {
-    const orders = await orders.find()
+    const order = await Order.find()
       .populate('orderItems.productId')
       .sort({ dateOrdered: -1 })
       .exec();
+      console.log("orders",order);
 
-    res.render("orders", { orders });
+    res.render("order", { order });
   } catch (error) {
     console.log(error.message);
-    res.render("404");
+   
   }
 };
 

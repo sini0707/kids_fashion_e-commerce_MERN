@@ -112,7 +112,7 @@
                 <li class="active"><a href="/shop">Shop</a></li>
                 <li>
                   
-                    <li><a href="/shop">Shop</a></li>
+                    
                     <li><a href="/cart">Cart</a></li>
                     <li><a href="/checkOut">Check Out</a></li>
                    
@@ -158,6 +158,7 @@
               <div class="breadcrumb__links">
                 <a href="/home">Home</a>
                 <span>my Orders</span>
+
               </div>
             </div>
           </div>
@@ -165,6 +166,45 @@
       </div>
     </section>
     <!-- Breadcrumb Section End -->
+
+
+    
+    <div class="card">
+      <div class="card-body">
+        <% if (orders.length === 0) { %>
+          <p class="text-center">No orders found.</p>
+        <% } else { %>
+          <ul class="list-group">
+            <% orders.forEach(order => { %>
+              <li class="list-group-item">
+                <h4 class="card-title">Order ID: <%= order._id %></h4>
+                <p>Status: <%= order.status %></p>
+                <p>Grand Total: $<%= order.grandTotal.toFixed(2) %></p>
+                <p>Date Ordered: <%= order.dateOrdered.toDateString() %></p>
+                <ul class="list-group">
+                  <% order.orderItems.forEach(item => { %>
+                    <li class="list-group-item">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <span class="font-weight-bold">Product:</span> <%= item.productId.name %> |
+                          <span class="font-weight-bold">Quantity:</span> <%= item.quantity %> |
+                          <span class="font-weight-bold">Total:</span> $<%= item.total %>
+                        </div>
+                      </div>
+                    </li>
+                  <% }); %>
+                </ul>
+              </li>
+            <% }); %>
+          </ul>
+        <% } %>
+      </div>
+    </div>
+    
+  
+  
+  
+  
 
 
 

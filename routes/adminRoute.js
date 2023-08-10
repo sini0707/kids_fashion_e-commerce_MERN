@@ -1,23 +1,23 @@
 const express = require('express');
 const admin_route = express();
 
-const multer = require('multer');
+const {upload,multipleUpload} = require('../multer/multer');
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, path.join(__dirname, "../public/product-images"));
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + "-" + file.originalname);
-    },
-  });
-  const upload = multer({ storage: storage });
-  const multipleUpload = upload.fields([
-    { name: 'image1', maxCount: 1 },
-    { name: 'image2', maxCount: 1 },
-    { name: 'image3', maxCount: 1 }
-  ]);
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, path.join(__dirname, "../public/product-images"));
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, Date.now() + "-" + file.originalname);
+//     },
+//   });
+//   const upload = multer({ storage: storage });
+//   const multipleUpload = upload.fields([
+//     { name: 'image1', maxCount: 1 },
+//     { name: 'image2', maxCount: 1 },
+//     { name: 'image3', maxCount: 1 }
+//   ]);
   
 const session = require('express-session');
 const config = require('../config/config');
@@ -62,7 +62,7 @@ admin_route.get('/changeStatus',categoryController.changeStatus);
 admin_route.get('/addProduct',productController.loadProducts);
 admin_route.post(
     "/addProduct",
-    multipleUpload,
+    upload.array('images', 3),
     productController.createProduct
   )
  admin_route.get('/productList',productController.loadProductList); 
@@ -79,8 +79,11 @@ admin_route.post(
 
  admin_route.get('/editProductList1', productController.editProductList);
 admin_route.post('/editProductList1', multipleUpload, productController.updateProductList);
-admin_route.get('/deleteProduct',productController.deleteProduct);
-admin_route.get('/orders',adminController.ordersLoad);
+// admin_route.get('/deleteProduct',productController.deleteProduct);
+
+admin_route.get('/UnList', productController.UnListProduct);
+admin_route.get('/AddList', productController.AddListProduct);
+admin_route.get('/ordersList',adminController.ordersLoad);
 
 
 

@@ -50,10 +50,12 @@
                                 <h6> Media</h6>
                             </div>
                             <div class="col-md-9">
-                                <div class="mb-4">
+                              <input type="file" name="images" class="form-control"id="productImage" placeholder="enter size"required accept="/image/*" multiple>
+                              <label for="productImage">Image</label>
+                                 <!-- <div class="mb-4">
                                     <label class="form-label">Main Image</label>
-                                    <input class="form-control" type="file" name="image1" id="productImage">
-                                </div>
+                                    <input class="form-control" type="file" name="image1" id="productImage" multiple>
+                                </div>  -->
                                 <!-- <div class="input-upload">
                                   <img src="/imgs/theme/upload.svg" id="imgView1" alt="">
                                   <input class="form-control" id="input1" name="file" onchange="viewImage(event, 1)" type="file">
@@ -62,7 +64,7 @@
                                   <img src="" id="croppedImg1" alt="">
                                   <button type="button" id="saveButton1" class="btn-sm btn-primary">Save</button>
                                 </div>
-                                <div class="mb-4">
+                                <!-- <div class="mb-4">
                                     <label class="form-label">Side View Image</label>
                                     <input required class="form-control"  multiple type="file" name="image2" id="sideViewImage">
                                 </div>
@@ -70,7 +72,7 @@
                                     <label class="form-label">Top View Image</label>
                                     <input required multiple class="form-control" type="file" name="image3" id="topViewImage">
                                 </div> 
-                            </div>
+                            </div> -->
 
                             <div>
                                 <button  class="btn btn-primary" type="submit">Submit</button>

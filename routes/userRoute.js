@@ -75,11 +75,13 @@ user_route.get('/checkout',userController.loadCheckout);
 user_route.get('/profile',userController.userProfile);
 user_route.post('/profile',userController.profileAddressAdd);
 user_route.get('/checkOut',auth.isLogin,userController.loadOrder);
+user_route.post('/checkOut', paymentController.placeOrder);
+
 
 user_route.post('/',userController.editAddress);
 
 user_route.get('/orderDetails',auth.isLogin,paymentController.orderDetailsLoad);
-user_route.post('/checkOut', paymentController.placeOrder);
+
 
 user_route.get('/myOrders',auth.isLogin,userController.loadMyOrder);
 
