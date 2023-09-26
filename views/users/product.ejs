@@ -1,0 +1,65 @@
+
+
+
+
+<script src="http://checkOut.razorpay.com/v1/checkOut.js"></script>
+<script>
+ var formData = $('.pay-form').serialize();
+  $.ajax({
+    url: "/RazorPage",
+    type: "POST",
+    data: formData,
+    success: function (res) {
+      if (res.success) {
+        var options = {
+          "key": "" + res.key_id + "",
+          "amount": "" + res.amount + "",
+          "currency": "INR",
+          "name": "Orders",
+          "description": "Test Transaction",
+          "order_id": "" + res.order_id + "",
+          "handler": function (response) {
+            var form = $('.pay-form');
+            var url = form.attr('action');
+            var method = form.attr('method');
+            $('<input>').attr({
+              type: 'hidden',
+              name: 'paymentMethod',
+              value: paymentMethod
+            }).appendTo(form);
+            
+            // Update the amount field with the dynamically calculated total
+            $('#totalValues').val(response.amount);
+
+            form.attr('action', '/checkout');
+            form.attr('method', 'POST');
+            form.unbind('submit').submit();
+            form.attr('action', url);
+            form.attr('method', method);
+            location.href = `/viewOrderDetails?id=${orderId}`;
+          },
+          "prefill": {
+            "name": "" + res.name + "",
+            "email": "" + res.email + "",
+            "contact": "" + res.mobile + ""
+          },
+          "notes": {
+            "address": "Razorpay Corporate Office"
+          },
+          "theme": {
+            "color": "green"
+          }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+          swal("Payment Failed", "", "error");
+        });
+        rzp1.open();
+      } else {
+        alert(res.msg);
+      }
+    }
+  });
+
+
+</script>

@@ -7,14 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>KidZ Fashion | Template</title>
-
-    <!-- Google Font -->
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Css Styles -->
+      rel="stylesheet"/>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
@@ -23,34 +18,66 @@
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
+    <style>
+      .contactButton {
+  background: #7079f0;
+  color: white;
+  font-family: inherit;
+  padding: 0.45em;
+  padding-left: 1.0em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em #714da6;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3em;
+}
+
+.iconButton {
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #7a8cf3;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.contactButton:hover {
+  transform: translate(-0.05em, -0.05em);
+  box-shadow: 0.15em 0.15em #5566c2;
+}
+
+.contactButton:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em #5566c2;
+}
+    </style>
   </head>
 
   <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
+   <div id="preloder">
       <div class="loader"></div>
     </div>
-
-    <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
       <div class="offcanvas__option">
         <div class="offcanvas__links">
-          <a href="#">Sign in</a>
-          <a href="#">Login</a>
           <a href="/login">Logout</a>
         </div>
-        <!-- <div class="offcanvas__top__hover">
-                <span>Usd <i class="arrow_carrot-down"></i></span>
-                <ul>
-                    <li>USD</li>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul>
-            </div> -->
-      </div>
+       </div>
       <div class="offcanvas__nav__option">
-        <a href="/shop" class="search-switch"
+        <a href="/search" class="search-switch"
           ><img src="img/icon/search.png" alt=""
         /></a>
         <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
@@ -64,9 +91,6 @@
         <p>Free shipping, 30-day return or refund guarantee.</p>
       </div>
     </div>
-    <!-- Offcanvas Menu End -->
-
-    <!-- Header Section Begin -->
     <header class="header">
       <div class="header__top">
         <div class="container">
@@ -79,19 +103,9 @@
             <div class="col-lg-6 col-md-5">
               <div class="header__top__right">
                 <div class="header__top__links">
-                  <a href="/signup">Signup</a>
-                  <a href="/login">Login</a>
                   <a href="/login">Logout</a>
                 </div>
-                <!-- <div class="header__top__hover">
-                                <span>Usd <i class="arrow_carrot-down"></i></span>
-                                <ul>
-                                    <li>USD</li>
-                                    <li>EUR</li>
-                                    <li>USD</li>
-                                </ul>
-                            </div> -->
-              </div>
+                 </div>
             </div>
           </div>
         </div>
@@ -113,24 +127,15 @@
                 <li>
                   <a href="#">Pages</a>
                   <ul class="dropdown">
-                    <li><a href="./about.html">About Us</a></li>
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
-                  </ul>
+                  <li><a href="/shop">Shop Details</a></li>
+                    <li><a href="/cart">Shopping Cart</a></li>
+                   </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contacts</a></li>
-              </ul>
+                </ul>
             </nav>
           </div>
           <div class="col-lg-3 col-md-3">
             <div class="header__nav__option">
-              <a href="/search" class="search-switch"
-                ><img src="img/icon/search.png" alt=""
-              /></a>
-              <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
               <a href="/cart"
                 ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
               >
@@ -147,9 +152,6 @@
         <div class="canvas__open"><i class="fa fa-bars"></i></div>
       </div>
     </header>
-    <!-- Header Section End -->
-
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
       <div class="container">
         <div class="row">
@@ -165,16 +167,13 @@
         </div>
       </div>
     </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Shop Section Begin -->
     <section class="shop spad">
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
             <div class="shop__sidebar">
               <div class="shop__sidebar__search">
-                <!-- <form action="/shop"> -->
+                
                 <form
                   action="/search"
                   method="post"
@@ -188,9 +187,11 @@
                 </form>
               </div>
               <div class="shop__sidebar__accordion">
+                <form action="">
                 <div class="accordion" id="accordionExample">
                   <div class="card">
                     <div class="card-heading">
+                      
                       <a data-toggle="collapse" data-target="#collapseOne"
                         >Categories</a
                       >
@@ -204,8 +205,9 @@
                       <div class="shop__sidebar__categories">
                         <ul style="list-style: none; padding: 0; margin: 0;">
                           <% allcategory.forEach(function(item) { %>
-                          <li style="cursor: pointer; margin-bottom: 5px;" data-url="/categoryShop?id=<%=item._id%>" onclick="handleCategoryClick('<%=item._id%>')">
-                            <%=item.name%>
+                         
+                          <li>
+                            <input type="checkbox" name="category" id="" value="<%=item._id%>"><%=item.name%>
                           </li>
                           <% }) %>
                         </ul>
@@ -214,8 +216,7 @@
                     
                     <script>
                       function handleCategoryClick(categoryId) {
-                        // You can perform any action you want when a category is clicked.
-                        // For example, you can redirect to the category page using JavaScript:
+                        
                         window.location.href = '/categoryShop?id=' + categoryId;
                       }
                     </script>
@@ -223,26 +224,12 @@
                     </div>
                   </div>
                   <div class="card">
-                    <!-- <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__brand">
-                                                <ul>
-                                                    <li><a href="#">Louis Vuitton</a></li>
-                                                    <li><a href="#">Chanel</a></li>
-                                                    <li><a href="#">Hermes</a></li>
-                                                    <li><a href="#">Gucci</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div> -->
+                   
                   </div>
                   <div class="card">
                     <div class="card-heading">
                       <a data-toggle="collapse" data-target="#collapseThree"
-                        >Filter Price</a
+                        >Sort By Price</a
                       >
                     </div>
                     <div
@@ -253,54 +240,58 @@
                       <div class="card-body">
                         <div class="shop__sidebar__price">
                           <ul>
-                            <li><a href="#">0.00 - 500.00</a></li>
-                            <li><a href="#">500.00 - 1000.00</a></li>
-                            <li><a href="#">1001.00 - 2000.00</a></li>
-                            <li><a href="#">2001.00 - 3000.00</a></li>
-                            <li><a href="#">3001.00 - 4000.00</a></li>
-                            <li><a href="#">4000.00+</a></li>
+                            <li>
+                              <input type="checkbox" name="low" value="low" >Low 
+                            <input type="checkbox" name="high" id="" value="high"> High </li>
                           </ul>
+                          
                         </div>
                       </div>
+                      
                     </div>
+                    
                   </div>
+                  <ul>
+                    
+                      <!-- <button type="submit">submit</button> -->
+                      <button class="contactButton"> Go
+                        <div class="iconButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+                        </div>
+                      </button>
+                    
+                  </ul>
                   <div class="card">
-                    <!-- <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseFour">Size</a>
-                                    </div>
-                                    <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__size">
-                                                <label for="xs">xs
-                                                    <input type="radio" id="xs">
-                                                </label>
-                                                <label for="sm">s
-                                                    <input type="radio" id="sm">
-                                                </label>
-                                                <label for="md">m
-                                                    <input type="radio" id="md">
-                                                </label>
-                                                <label for="xl">xl
-                                                    <input type="radio" id="xl">
-                                                </label>
-                                                <label for="2xl">2xl
-                                                    <input type="radio" id="2xl">
-                                                </label>
-                                                <label for="xxl">xxl
-                                                    <input type="radio" id="xxl">
-                                                </label>
-                                                <label for="3xl">3xl
-                                                    <input type="radio" id="3xl">
-                                                </label>
-                                                <label for="4xl">4xl
-                                                    <input type="radio" id="4xl">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div> -->
+
+
+                    <!-- <div class="card">
+                      <div class="card-heading">
+                          <a data-toggle="collapse" data-target="#collapseFour">Size</a>
+                      </div>
+                      <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
+                          <div class="card-body">
+                              <div class="shop__sidebar__size">
+                                  <label for="sm">S
+                                      <input type="radio" id="sm">
+                                  </label>
+                                  <label for="md">M
+                                      <input type="radio" id="md">
+                                  </label>
+                                  <label for="xl">L
+                                      <input type="radio" id="l">
+                                  </label>
+                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div> -->
+                    
                   </div>
-                  <div class="card">
-                    <!-- <div class="card-heading">
+
+
+
+                  <!-- <div class="card">
+                                    <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
                                     </div>
                                     <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
@@ -318,44 +309,14 @@
                                                 <label class="c-4" for="sp-4">
                                                     <input type="radio" id="sp-4">
                                                 </label>
-                                                <label class="c-5" for="sp-5">
-                                                    <input type="radio" id="sp-5">
-                                                </label>
-                                                <label class="c-6" for="sp-6">
-                                                    <input type="radio" id="sp-6">
-                                                </label>
-                                                <label class="c-7" for="sp-7">
-                                                    <input type="radio" id="sp-7">
-                                                </label>
-                                                <label class="c-8" for="sp-8">
-                                                    <input type="radio" id="sp-8">
-                                                </label>
-                                                <label class="c-9" for="sp-9">
-                                                    <input type="radio" id="sp-9">
-                                                </label>
+                                                
                                             </div>
                                         </div>
-                                    </div> -->
-                  </div>
-                  <div class="card">
-                    <!-- <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
                                     </div>
-                                    <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__tags">
-                                                <a href="#">Product</a>
-                                                <a href="#">Bags</a>
-                                                <a href="#">Shoes</a>
-                                                <a href="#">Fashio</a>
-                                                <a href="#">Clothing</a>
-                                                <a href="#">Hats</a>
-                                                <a href="#">Accessories</a>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                  </div>
+                                </div>
+                  -->
                 </div>
+              </form>
               </div>
             </div>
           </div>
@@ -369,20 +330,21 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <div class="shop__product__option__right">
-                    <p>Sort by Price:</p>
-                    <select>
-                      <option value="">Low To High</option>
-                      <option value="">below - $1000</option>
-                      <option value="">1001 - $2000</option>
-                      <option value="">2001 - $3000</option>
-                      <option value="">3001 - $4000</option>
-                    </select>
+                    <!-- <p>Sort by Price:</p> -->
+                 <!-- <select id="sort-select">
+                    <a href=""> <option value="lowToHigh">Low To High</option>
+                     <a href=""> <option value="highToLow">High To Low</option></a>
+                      <a href="/productsort?sort=lowToHigh">Sort by Price: Low to High</a>
+                      <a href="/productsort?sort=highToLow">Sort by Price: High to Low</a>
+
+                    </select> -->
                   </div>
                 </div>
               </div>
             </div>
             <div class="row product__filter">
               <% allProducts.forEach(product => { %>
+                <% if(product.is_listed){%>
               <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="product__item">
                   <div class="product__item__pic set-bg" data-setbg="">
@@ -391,22 +353,22 @@
                     /></a>
                     <ul class="product__hover">
                       <li>
-                        <a href="#"><img src="img/icon/heart.png" alt="" /></a>
+                        <!-- <a href="#"><img src="img/icon/heart.png" alt="" /></a> -->
                       </li>
-                      <li>
+                      <!-- <li>
                         <a href="#"
                           ><img src="img/icon/compare.png" alt="" />
                           <span>Compare</span></a
                         >
                       </li>
                       <li>
-                        <a href="#"><img src="img/icon/search.png" alt="" /></a>
-                      </li>
+                        <a href="/search"><img src="img/icon/search.png" alt="" /></a>
+                      </li> -->
                     </ul>
                   </div>
                   <div class="product__item__text">
                     <h6><%= product.name %></h6>
-                    <a href="/cart" class="add-cart">+ Add To Cart</a>
+                    <a href="/addtocart?id=<%=product.id%>" class="add-cart">+ Add To Cart</a>
 
                     <!-- <div class="rating">
                                         <i class="fa fa-star-o"></i>
@@ -417,7 +379,7 @@
                                     </div> -->
                     <h5><%= product.price%></h5>
 
-                    <div class="product__color__select">
+                    <!-- <div class="product__color__select">
                       <label for="pc-4">
                         <input type="radio" id="pc-4" />
                       </label>
@@ -427,10 +389,11 @@
                       <label class="grey" for="pc-6">
                         <input type="radio" id="pc-6" />
                       </label>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
+              <%}%>
               <% }) %>
             </div>
           </div>
@@ -440,22 +403,19 @@
             <div class="product__pagination">
               <div class="pagination-wrap">
                 <ul class="pagination-ul">
-                  <% if(currentPage > 1) { %>
-                  <li><a href="/shop?page=<%= currentPage - 1  %>">Prev</a></li>
-                  <% } %> <% for(let i=1; i<=totalPages; i++) { %> <%
-                  if(i===currentPage) { %>
-                  <li><a class="active" href="#"><%= i %></a></li>
-                  <% } else { %>
-                  <li><a href="/shop?page=<%= i %>"><%= i %></a></li>
-                  <% } %> <% } %> <% if(currentPage < totalPages) { %>
-                  <li><a href="/shop?page=<%= currentPage +1  %>">Next</a></li>
+                 <li>
+                   <% let i=1 %>
+                  <% for (const link of paginationLinks) { %>
+                    <a href="<%= link %>"><%= i++ %></a>
                   <% } %>
+                 </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
+     
     </section>
     <!-- Shop Section End -->
 
@@ -466,7 +426,7 @@
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer__about">
               <div class="footer__logo">
-                <!-- <a href="#"><img src="img/footer-logo.png" alt=""></a> -->
+               <!-- <a href="#"><img src="img/footer-logo.png" alt=""></a>  -->
               </div>
               <p>
                 The customer is at the heart of our unique business model, which
@@ -480,9 +440,9 @@
               <h6>Shopping</h6>
               <ul>
                 <li><a href="/home">BOYS Clothing Collections</a></li>
-                <!-- <li><a href="#">Trending Shoes</a></li>
+                 <li><a href="#">Trending Shoes</a></li>
                             <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li> -->
+                            <li><a href="#">Sale</a></li> 
               </ul>
             </div>
           </div>
@@ -548,6 +508,52 @@
     <!-- Search End -->
 
     <!-- Js Plugins -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const lowCheckbox = document.getElementById("lowCheckbox");
+    const highCheckbox = document.getElementById("highCheckbox");
+
+    // Check the user's preferences and set the checkboxes accordingly
+    // You can fetch this information from the server or other sources
+    const userPreferences = getUserPreferences(); // Implement this function to get user preferences
+
+    if (userPreferences.includes("low")) {
+        lowCheckbox.checked = true;
+    }
+
+    if (userPreferences.includes("high")) {
+        highCheckbox.checked = true;
+    }
+
+    const sortForm = document.getElementById("sort-form");
+
+    sortForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        // Get the user's selected preferences
+        const selectedPreferences = [];
+
+        if (lowCheckbox.checked) {
+            selectedPreferences.push("low");
+        }
+
+        if (highCheckbox.checked) {
+            selectedPreferences.push("high");
+        }
+
+        // Send the selectedPreferences to the server for sorting/filtering
+        // Implement your server-side logic here to sort/filter the products
+        // Update the product list accordingly
+
+        // After the server operation, you can refresh or update the product list
+        // Example: window.location.reload();
+    });
+});
+
+
+</script>
+    
+    
+
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>

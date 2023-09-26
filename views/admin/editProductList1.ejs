@@ -52,6 +52,11 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="mb-4">
+                                            <label class="form-label">Stock</label>
+                                            <input type="text" placeholder="" class="form-control" name="stock" value="<%= productData[0].stock %>">
+                                        </div>
+                                        
                                         <div class="row mb-4">
                                             <label class="col-lg-3 col-form-label">Status</label>
                                             <div class="col-lg-9">
@@ -67,21 +72,24 @@
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <label class="col-lg-3 col-form-label">Main Image</label>
+                                            <label class="col-lg-3 col-form-label"> Image</label>
                                             <div class="col-lg-9">
-                                                <input type="file" class="form-control" name="image1">
+                                                <input type="file" class="form-control" name="image1" onchange="previewImage(event, 'image1Preview')">
+                                                <img id="image1Preview" src="/product-images/<%=productData[0].images[0] %>" alt="Main Image Preview" style="max-width: 100px;">
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <label class="col-lg-3 col-form-label">Side View Image</label>
+                                            <label class="col-lg-3 col-form-label"> Image</label>
                                             <div class="col-lg-9">
-                                                <input type="file"   class="form-control" name="image2">
+                                                <input type="file" class="form-control" name="image2" onchange="previewImage(event, 'image2Preview')">
+                                                <img id="image2Preview" src="/product-images/<%=productData[0].images[1] %>" alt="Main Image Preview" style="max-width: 100px;">
                                             </div>
                                         </div>
                                         <div class="row mb-4">
-                                            <label class="col-lg-3 col-form-label">Top View Image</label>
+                                            <label class="col-lg-3 col-form-label"> Image</label>
                                             <div class="col-lg-9">
-                                                <input type="file" class="form-control" name="image3">
+                                                <input type="file" class="form-control" name="image3" onchange="previewImage(event, 'image3Preview')">
+                                                <img id="image3Preview" src="/product-images/<%=productData[0].images[2] %>" alt="Main Image Preview" style="max-width: 100px;">
                                             </div>
                                         </div>
                                         <br>
@@ -95,6 +103,25 @@
             </div>
         </div>
       </section>
+      <script>
+    function previewImage(event, previewId) {
+        const preview = document.getElementById(previewId);
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = ""; 
+        }
+    }
+</script>
+
       
       
    

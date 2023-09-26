@@ -55,7 +55,7 @@
             <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
             <a href="#"><img src="img/icon/heart.png" alt=""></a>
             <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
+            <div class="price">₹0.00</div>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
@@ -77,8 +77,8 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <a href="/signup">Signup</a>
-                                <a href="/login">Login</a>
+                                <!-- <a href="/signup">Signup</a> -->
+                                <!-- <a href="/login">Login</a> -->
                                 <a href="/logout">Logout</a>
                             </div>
                            
@@ -104,11 +104,11 @@
                                     <li><a href="./about.html">About Us</a></li>
                                     <li><a href="/single-product">Shop Details</a></li>
                                     <li><a href="/cart">Shopping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="/checkOut">Check Out</a></li>
+                                    <!-- <li><a href="./blog-details.html">Blog Details</a></li> -->
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
+                            <!-- <li><a href="./blog.html">Blog</a></li> -->
                             <li><a href="./contact.html">Contacts</a></li>
                         </ul>
                     </nav>
@@ -116,8 +116,15 @@
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
                         <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                        <a href="#"><img src="img/icon/heart.png" alt=""></a>
-                        <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <!-- <a href="#"><img src="img/icon/heart.png" alt=""></a> -->
+                        <a href="/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+                        <div class="price">
+                            <% if (typeof cartCount !== 'undefined') { %>
+                            <span><%= cartCount %></span>
+                            <% } else { %>
+                            <span>0</span>
+                            <% } %>
+                          </div>
                         
                     </div>
                 </div>
@@ -167,13 +174,15 @@
                                     <table>
                                         <% data.forEach(item => { %>
                                           <tr>
+                                            
+                                            
                                             <td class="product__cart__item">
                                               <div class="product__cart__item__pic">
                                                 <img style="height: 100px; width: 90px;" src="/product-images/<%= item.carted.images[0] %>" alt="<%= item.carted.name %>">
                                               </div>
                                               <div class="product__cart__item__text">
                                                     <h6><%= item.carted.name.substring(0, 20) %><%= item.carted.name.length > 20 ? '' : '' %></h6>
-                                                <p>Price: $<%= item.carted.price %></p>
+                                                <p>Price: ₹<%= item.carted.price %></p>
                                               </div>
                                             </td>
                                             <td class="quantity__item">
@@ -192,7 +201,7 @@
                                             
                                             </div>
                                             </td>
-                                            <td class="cart__price">$ <%= item.quantity * item.carted.price %></td>
+                                            <td class="cart__price">₹ <%= item.quantity * item.carted.price %></td>
                                             <td class="cart__close">
                                                 <i style="cursor: pointer;" data-id="<%= item.carted._id %>" class="fa fa-close delete-icon"></i>
                                             </td>
@@ -201,6 +210,7 @@
 
                                             
                                           </tr>
+                                        
                                         <% }); %>
                                       </table>
                                        
@@ -222,8 +232,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <!-- <div class="cart__discount">
+                 <div class="col-lg-4">
+                    <!-- <div class="cart__discount"> 
                         <h6>Discount codes</h6>
                         <form action="#">
                             <input type="text" placeholder="Coupon code">
@@ -323,6 +333,10 @@
         </div>
     </div>
     <!-- Search End -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+
+<!-- Include SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
     <script>
         // Function to handle the delete action
         function deleteCartItem(productId) {
@@ -375,24 +389,39 @@
         updateQuantity(qtyValue);
     }
     
-    function updateQuantity(qtyValue,prodId) {
-        console.log(prodId)
-        let quantity=qtyValue;
-        let productId=prodId;
-        fetch(`/updateQty`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body:JSON.stringify({ quantity,productId }) // Send the product ID in the request body
-          }).then(async(response)=>{
-            res=await response.json();
-            location.reload()
-          }).catch((err)=>{
-            console.log(err);
-          })
-        
+    function updateQuantity(qtyValue, prodId) {
+  console.log(prodId);
+  let quantity = qtyValue;
+  let productId = prodId;
+  
+  fetch(`/updateQty`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ quantity, productId }) // Send the product ID in the request body
+  })
+  .then(async (response) => {
+    const responseData = await response.json();
+
+    if (responseData.success === false) {
+      Swal.fire({
+        title: "Max quantity",
+        text: "Quantity limit Exceeds",
+        timer: 3000,
+        icon: "warning"
+      }).then(() => {
+        location.reload();
+      });
+    } else {
+      location.reload();
     }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}
+
       // Handle decrement button click
       decrementButtons.forEach(button => {
   button.addEventListener('click', (event) => {
@@ -428,6 +457,7 @@ function updateQuantityValue(event, value, productId) {
 
 
       </script>
+      
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

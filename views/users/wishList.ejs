@@ -85,7 +85,7 @@
                                 <!-- <th>Quantity</th> -->
                                 <th>Total</th>
                                 <!-- <th scope="col">Action</th> -->
-                                <!-- <th scope="col">Remove</th> -->
+                                <th scope="col">Remove</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -101,6 +101,7 @@
                                         <p class="font-xs"><%=item.wishListed.description%>
                                         </p>
                                         <td class="price" data-title="Price"><span>₹<%=item.wishListed.price%></span></td>
+                                        
                                       
                                     </div>
                                 </td>
@@ -110,7 +111,7 @@
                                     </button>
                 
                                   </td> -->
-                                  <!-- <td class="action" data-title="Remove" onclick="removeFromWishList('<%=item.productId%>')"><a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></td> -->
+                                  <td class="action" data-title="Remove" ><a onclick="removeFromWishList('<%=item.productId%>')"><i class="fa fa-trash" ></i></a></td>
                                   
                                 </tr>
                                 <% }); %>
@@ -140,8 +141,34 @@
                   </div>     
       
 </section>
-            
+        <script>   
+// remove from wishList ajax call
+function removeFromWishList(proId) {
 
+  event.preventDefault()
+
+
+  $.ajax({
+    url: '/remove-product-wishlist',
+    method: 'DELETE',
+    data: {
+      proId: proId,
+      
+    },
+    success: (response) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Product removed from wishlist',
+        showConfirmButton: true,
+        timer: 3000
+      }).then(() => {
+        location.reload()
+      })
+    }
+  })
+}
+
+</script>
 
 
 <%- include ('../layouts/footer.ejs') %>

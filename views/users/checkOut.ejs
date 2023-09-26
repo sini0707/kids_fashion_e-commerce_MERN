@@ -114,8 +114,8 @@ button.edit-address {
           <div class="col-lg-6 col-md-5">
             <div class="header__top__right">
               <div class="header__top__links">
-                <a href="/signup">Signup</a>
-                <a href="/login">Login</a>
+                <!-- <a href="/signup">Signup</a> -->
+                <!-- <a href="/login">Login</a> -->
                 <a href="/login">Logout</a>
               </div>
               <!-- <div class="header__top__hover">
@@ -165,17 +165,11 @@ button.edit-address {
             <a href="/search" class="search-switch"
               ><img src="img/icon/search.png" alt=""
             /></a>
-            <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+            <!-- <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a> -->
             <a href="/cart"
               ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
             >
-            <div class="price">
-              <% if (typeof cartCount !== 'undefined') { %>
-              <span><%= cartCount %></span>
-              <% } else { %>
-              <span>0</span>
-              <% } %>
-            </div>
+           
           </div>
         </div>
       </div>
@@ -208,52 +202,54 @@ button.edit-address {
             <div class="col-lg-8 col-md-6">
                 <!-- Address Details Form -->
                 <div class="checkout__form">
-                    <form action="/checkOUt" id="addressForm" method="post">
+                    <form action="/checkOut" id="addressForm" method="post">
                       <div class="row">
-                        <div class="col-lg-8 col-md-6">
-                         
-                          <% user.addresses.forEach(function(address,index) { %>
-                            <!-- <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
-                            here</a> to enter your code</h6> -->
-                            <h6 class="checkout__title">Address Details</h6>
-                            <div class="checkout__input">
-                                <p>Name<span>*</span></p>
-                                <input type="text" placeholder="Name" name="name" class="checkout__input__add" value="<%= address.name %>">
-                            </div>
-                            <input type="hidden" name="selectedAddressIndex" value="<%= index %>">
-
-                            <div class="checkout__input">
-                                <p>Address<span>*</span></p>
-                                <input type="text" name="address" placeholder="Street Address" class="checkout__input__add" value="<%= address.address %>">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text" name="city"value="<%= address.city %>">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Locality<span>*</span></p>
-                                <input type="text" name="locality" value="<%= address.locality %>">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text" name="state"value="<%= address.state %>">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text" name="pincode"value="<%= address.pincode %>">
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="checkout__input">
-                                        <p>Phone<span>*</span></p>
-                                        <input type="text" name="mobileNumber" value="<%= address.mobileNumber%>">
-                                    </div>
-                                </div>
+                        <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
+               
+                        <div class="row">
+                          <%if(address.length>=1){%>
+                            <% address.forEach(addrss => { %>
+                                <div class="m-3" style="display: block;">
+                                    <label> 
+                                        <input type="radio" id="shipping_address" name="shippingAddress" value=" <%= addrss.name %>,<%= addrss.mobileNumber %>,<%= addrss.address %>,<%= addrss.locality%>,<%= addrss.city%>, <%= addrss.state %>,<%= addrss.pincode %>,<%= addrss._id %>"checked>
+                                        <%= addrss.name%>,<%= addrss.mobileNumber %>,<%= addrss.address%>,
+                                        <%= addrss.locality%>,
+                                        <%= addrss.city%>,
+                                        <%= addrss.state %>, 
+                                        <%= addrss.pincode %> 
+                                        
+                                      </label>
+                                      
+                                  </div>
                                
-                            </div>
-                            <% }); %>
-                        <!-- <button type="submit">Save </button> -->
-                        <button>Edit </button>
+                      
+                           
+                            <% }) %>
+                            
+                            <div class="col-md-12 form-group">
+                              <div class="custom-control custom-checkbox">
+                                 
+                                  
+                                  <a href="/editAddress" class="m-3" id="editAddressLink" >Edit/Change</a>
+                                  <a href="/deleteAddress" class="m-3" id="deleteAddressLink" >Delete</a>
+                              </div>
+                          </div>
+                          <%}else{%>
+                              <h3>No address found, click below to add new address</h3>
+                              <br><br>
+                              <a href="/profile">click here</a>
+
+                          <%}%>
+                         
+                         
+
+
+
+
+
+                           
+                        
+
                         </div>
                         </div>
                     </form>
@@ -279,39 +275,237 @@ button.edit-address {
                  
                       <ul class="checkout__total__all">
                         <li>Subtotal <span><%= cart.grandTotal%></span></li>
-                        <li>GrandTotal <span> <%= cart.grandTotal %> </span></li>
+                        <!-- <li>GrandTotal <span> <%= cart.grandTotal %> </span></li> -->
+                         <li><a href="#">Discount  <span id="couponOffer"></span></a></li>
+                        
+
+                        <li><a href="#">GrandTotal <span id="total">₹<%= cart.grandTotal %></span></a></li>
+                                <input type="hidden" name="discountPercentage" id="discountPercentage" value="0">
+                                <input type="hidden" name="discountAmount" id="discountAmount" value="0">
+                                <input type="hidden" name="total" value="<%=subTotal%>" id="totalVal" >
+                                <%if(address[0]){%>
+                                <input type="hidden" name="address" value="<%=address[0]._id%>" >
+                                <%}else{%>
+                                    <%}%>
                     </ul>
+                    
+                    <div class="coupon_area">
+                      <input type="text" placeholder="Enter coupon code" name="couponCode" id="couponCode">
+                      <button class="primary-btn-2 text-white"  style="width: 100px; height: 40px; margin-top: 30px;background: black;" onclick="applyCoupon('<%=subTotal.cartTotal%>')" >Apply</button>
+                      <h5 id="couponErr"></h5>
+              </div> 
                     <div class="checkout__input__checkbox">
                         <label for="acc-or">
                             <!-- Create an account? -->
-                            <input type="checkbox" id="acc-or">
+                            <!-- <input type="checkbox" id="acc-or">
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <p></p>
-                    <form action='/checkOut' method="post">
-                    <div class="checkout__input__checkbox">
-                        <label for="payment">
-                           Cash on delivery
-                            <input type="checkbox" id="payment">
+                    <p></p> -->
+                    <form id="checkoutForm" action="/checkOut" method="post">
+                      <div class="checkout__input__checkbox">
+                          <label for="paymentCOD">
+                              Cash on delivery
+                              <input type="radio" id="paymentCOD" name="paymentOption" value="Cash On Delivery">
+                              <span class="checkmark"></span>
+                          </label>
+                      </div>
+                      <div class="checkout__input__checkbox">
+                          <label for="paymentRazorPay">
+                              RazorPay
+                              <input type="radio" id="paymentRazorPay" name="paymentOption" value="razor">
+                              <span class="checkmark"></span>
+                          </label>
+                      </div>
+
+                      <div class="checkout__input__checkbox">
+                        <label for="paymentwallet">
+                            Wallet
+                            <input type="radio" id="paymentwallet" name="paymentOption" value="Wallet">
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <div class="checkout__input__checkbox">
-                        <label for="paypal">
-                            Paypal
-                            <input type="checkbox" id="paypal">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                  <button type="submit" class="site-btn">PLACE ORDER</button>
-                </form>
+
+                    
+                      <button type="submit" class="site-btn" onclick="address()">PLACE ORDER</button>
+                  </form>
+                  <div id="errorText" style="color: red;"></div>
               </div>
           </div>
     </div>
 </section>
 
 <p id="message"></p>
+
+
+<script>
+
+
+async function address() {
+  const address = document.querySelectorAll('input[name="shippingAddress"]');
+  let selectedAddress = '';
+  for (let i = 0; i < address.length; i++) {
+    if (address[i].checked) {
+      selectedAddress = address[i].value;
+      break;
+    }
+  }try {
+    const response = await fetch(`/shipping-address-save?address=${selectedAddress}`, {
+      method: 'GET',
+    });
+
+    const data = await response.json();} catch (err) {
+    alert('Error' + err);
+  }
+
+}
+
+  const editAddressLink = document.getElementById('editAddressLink');
+  editAddressLink.addEventListener('click', (event) => {
+  const selectedAddressRadio = document.querySelector('input[name="shippingAddress"]:checked');
+  if (selectedAddressRadio) {
+          const selectedAddress = encodeURIComponent(selectedAddressRadio.value);
+          
+          // Update the link's href with the selected address as a query parameter
+          editAddressLink.href = `editAddress?address=${selectedAddress}`;
+      }
+  });
+</script>
+
+
+<script>
+  const deleteAddressLink = document.getElementById('deleteAddressLink');
+  deleteAddressLink.addEventListener('click', (event) => {
+    const selectedAddressRadio = document.querySelector('input[name="shippingAddress"]:checked');
+    if (selectedAddressRadio) {
+      // Extract the "address" parameter from the original URL
+      const selectedAddresss = encodeURIComponent(selectedAddressRadio.value);
+      // Split the parameter and decode the desired part
+      const addressParts = selectedAddresss.split(',');
+      const selectedAddress = decodeURIComponent(addressParts[addressParts.length - 1]);
+      
+      // Set the modified URL
+      deleteAddressLink.href = `deleteAddress?address=${selectedAddress}`;
+    }
+  });
+</script>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const checkoutForm = document.getElementById("checkoutForm");
+
+    checkoutForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      try {
+        const selectedPaymentOption = document.querySelector('input[name="paymentOption"]:checked').value;
+console.log(selectedPaymentOption)
+
+        
+        const response = await fetch("/checkOut", {
+          method: "POST",
+          headers:{"Content-Type": "application/json"},
+          body: JSON.stringify({selectedPaymentOption})
+        });
+
+        const data = await response.json();
+ 
+
+       
+        if (response.ok) {
+      //     if(!data.status){
+      //     Swal.fire({
+      //   title: 'Invalid Address!',
+      //   text: 'Please Select an Address',
+      //   icon: 'Error',
+      //   timer: 2000,
+      // }).then(() => {
+      //   return location.reload()
+      // });
+      //   }
+      if(data.invalid){
+        //     Swal.fire({
+      //   title: 'Invalid Address!',
+      //   text: 'Please Select an Address',
+      //   icon: 'Error',
+      //   timer: 2000,
+      // }).then(() => {
+      //   return location.reload()
+      // });
+      //   }
+      Swal.fire({
+        title:"Invalid amount",
+        text:"CAn't proceed",
+           icon: 'Error',
+        timer: 2000,
+
+      }).then(()=>{
+        return location.reload();
+      })
+
+      }
+          if(selectedPaymentOption === 'Cash On Delivery'){
+            console.log(data.orderid,'fhdifhd')
+            console.log('hiiii')
+            location.href = '/orderDetails?orderid='+data.orderid
+          }else{
+            razorpay(data)
+          }
+         
+       } else {
+            // Handle any errors or display a message
+            console.error("Error placing the order.");
+          }
+        
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    });
+  });
+</script>
+
+ <script>
+  function validateAndPlaceOrder() {
+    event.preventDefault();
+      const paymentCOD = document.getElementById("paymentCOD");
+      const paymentRazorPay = document.getElementById("paymentRazorPay");
+      const errorText = document.getElementById("errorText");
+      
+      const isCheckedCOD = paymentCOD.checked;
+      const isCheckedRazorPay = paymentRazorPay.checked;
+      
+      if (!isCheckedCOD && !isCheckedRazorPay) {
+          errorText.textContent = "Please select a payment option.";
+      } else {
+
+          errorText.textContent = "";
+          
+          if (isCheckedCOD) {
+              // Navigate to orderdetails page
+              // window.location.href = "/orderdetails";
+              checkoutForm.submit()
+
+          } else if (isCheckedRazorPay) {
+              
+              checkoutForm.submit()
+              razorpay()
+          }
+      }
+    }
+  </script>
+  
+<script>
+  // Get a reference to the button element
+  var editButton = document.getElementById("editButton");
+
+  // Add a click event listener to the button
+  editButton.addEventListener("click", function() {
+      // Navigate to the "/profile-edit" page
+      window.location.href = "/profile-edit";
+  });
+</script>
 
 <script>
 document.getElementById("addressForm").addEventListener("submit", async (event) => {
@@ -350,6 +544,205 @@ document.getElementById("addressForm").addEventListener("submit", async (event) 
 
 
 </script>
+<script>
+function applyCoupon(subTotal) {
+  let couponCode = document.getElementById('couponCode').value;
+  $.ajax({
+    url: '/couponVerify/' + couponCode,
+    method: 'GET',
+    success: (response) => {
+      if (response.status == true) {
+        $.ajax({
+          url: '/applyCoupon/' + couponCode,
+          method: 'GET',
+          success: (response) => {
+            console.log(response,'---');
+            if (response.status == true) {
+              document.getElementById('couponErr').style.color = '#19ff11'
+              document.getElementById('couponErr').innerText = "Coupon Applied SuccessFully"
+              // document.getElementById('subTotal').innerText = total - response.discountAmount
+              console.log(response.total)
+              document.getElementById('total').innerText = '₹' + Math.floor(response.total - response.discountAmount)
+              document.getElementById('totalVal').value = Math.floor(response.total- response.discountAmount)
+              document.getElementById('couponOffer').innerText = response.discount + '%'
+              document.getElementById('discountPercentage').value = response.discount
+              document.getElementById('discountAmount').value = Math.ceil(response.discountAmount)
+
+
+            } else {
+              document.getElementById('couponErr').style.color = "#ff0707" 
+              document.getElementById('couponErr').innerText = response.message
+            }
+
+          }
+        })
+      } else {
+        document.getElementById('couponErr').style.color = "#ff0707"
+        document.getElementById('couponErr').innerText = response.message
+
+        setTimeout(function() {
+          location.reload()
+        }, 5000)
+      }
+
+    }
+  })
+}
+
+
+
+</script>
+<script>
+  // Get references to the elements
+  let popupWrappers = document.querySelectorAll(".popup-wrapper");
+  let popupForms = document.querySelectorAll(".popup-form");
+  let popupBtns = document.querySelectorAll(".btn-reply");
+  let popupCloses = document.querySelectorAll(".close-button");
+
+  // Add event listeners to each popup button
+  popupBtns.forEach((btn, index) => {
+      btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          showPopup(index);
+      });
+  });
+
+  // Add event listeners to each popup close button
+  popupCloses.forEach((closeBtn, index) => {
+      closeBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          removePopup(index);
+      });
+  });
+
+  // Add event listeners to each popup form
+  popupForms.forEach((form) => {
+      form.addEventListener("submit", () => {
+          // Implement your form submission logic here
+          removePopup();
+      });
+  });
+
+
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    
+  function razorpay(order) {
+console.log(order.order)
+    
+    var options = {
+      "key": "rzp_test_wwV6p287kZHcga", // Enter the Key ID generated from the Dashboard
+      "amount": order.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "currency": "INR",
+      "name": "Kidz Fashion",
+      "description": "Test Transaction",
+      
+      "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "handler": function(response) {
+        verifypayment()
+      },
+      "modal": {
+      "ondismiss": function() {
+        
+        paymentFailed();
+      }
+    },
+
+      "prefill": {
+        "name": "order.name",
+        "email": "order.email",
+        "contact": "order.mobile"
+      },
+      "notes": {
+        "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+        "color": "#3399cc"
+      }
+    }
+console.log("reaching")
+
+    var rzp1 = new Razorpay(options)
+console.log("reaching ok")
+
+    rzp1.open();
+console.log("reaching okkk")
+
+  }
+
+
+  // 
+
+
+
+ async  function verifypayment() {
+  try {
+    const response = await fetch('/verifyPayment', {
+      method: 'POST',
+    });
+    const data = await response.json();
+    if (response.ok) {
+      console.log(response.orderid)
+      Swal.fire({
+        title: 'Order Success!',
+        text: 'Your order has been placed successfully.',
+        icon: 'success',
+        timer: 5000,
+      }).then(() => {
+        location.href = '/orderDetails?orderid='+data.orderid
+      });
+     
+      } else {
+        // Handle cases where the payment verification failed
+        alert('Payment verification failed. Please try again later.');
+        
+      }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    alert('An error occurred. Please try again later.');
+  }
+}
+
+
+async function paymentFailed() {
+  try {
+    const response = await fetch('/paymentFailed', {
+      method: 'POST',
+    });
+
+    if (response.ok) {
+      Swal.fire({
+        title: 'Order Failed!',
+        text: 'Your order has failed.',
+        icon: 'error',
+        timer: 5000,
+      }).then(() => {
+        location.href = '/checkOut';
+      });
+    } else {
+      // Handle cases where the payment verification failed
+      const responseData = await response.json(); // Assuming server returns JSON
+      Swal.fire({
+        title: 'Payment Failed',
+        text: responseData.message || 'Payment verification failed. Please try again later.',
+        icon: 'error',
+      });
+    }
+  } catch (error) {
+    console.error('An error occurred:', error);
+    alert('An error occurred. Please try again later.');
+  }
+}
+
+
+
+</script>
+
+
+
+
+
 
 <footer class="footer">
     <div class="container">
@@ -430,6 +823,17 @@ document.getElementById("addressForm").addEventListener("submit", async (event) 
 
 
  <!-- Js Plugins -->
+ <script>
+function selectOnlyOne(checkbox) {
+    var checkboxes = document.getElementsByName('checkbox_group');
+    
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] !== checkbox) {
+            checkboxes[i].checked = false;
+        }
+    }
+}
+</script>
  <script src="js/jquery-3.3.1.min.js"></script>
  <script src="js/bootstrap.min.js"></script>
  <script src="js/jquery.nice-select.min.js"></script>

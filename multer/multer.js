@@ -32,4 +32,5 @@ const storage = multer.diskStorage({
     { name: 'image2', maxCount: 1 },
     { name: 'image3', maxCount: 1 }
   ]);
+  // const singleUpload = upload.array('images', 3);
    module.exports = {upload,multipleUpload}

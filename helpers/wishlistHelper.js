@@ -100,7 +100,7 @@ const getWishListCount = async (userId) => {
               newWishList
                 .save()
                 .then(() => {
-                  resolve({ status: true });
+                  resolve({ status: 'added to WishList' });
                 })
                 .catch((err) => {
                   reject(err);

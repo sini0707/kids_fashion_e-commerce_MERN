@@ -27,6 +27,10 @@ const cartScheme = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  subTotal:{
+    type: Number,
+    default: 0,
+  }
   
 
   // Add dress-specific properties

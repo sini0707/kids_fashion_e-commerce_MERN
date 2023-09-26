@@ -53,7 +53,7 @@
         <a href="/shop" class="search-switch"
           ><img src="img/icon/search.png" alt=""
         /></a>
-        <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+        <!-- <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a> -->
         <a href="/cart"
           ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
         >
@@ -80,7 +80,7 @@
               <div class="header__top__right">
                 <div class="header__top__links">
                   
-                  <a href="/home">Home</a>
+                  <!-- <a href="/home">Home</a> -->
                   <a href="/login">Logout</a>
                 </div>
                 <!-- <div class="header__top__hover">
@@ -127,7 +127,7 @@
               <a href="/search" class="search-switch"
                 ><img src="img/icon/search.png" alt=""
               /></a>
-              <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a>
+              <!-- <a href="/wishList"><img src="img/icon/heart.png" alt="" /></a> -->
               <a href="/cart"
                 ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
               >
@@ -169,7 +169,7 @@
 
 
     
-    <div class="card">
+    <!-- <div class="card">
       <div class="card-body">
         <% if (orders.length === 0) { %>
           <p class="text-center">No orders found.</p>
@@ -199,7 +199,104 @@
           </ul>
         <% } %>
       </div>
+    </div> -->
+
+
+
+
+    <!-- Start orders loop -->
+    <%console.log("this is orders Length",orders,"wchjebf")%>
+    <% for(let i=0;i<orders.length;i++){ %>
+			<% for(let j=0;j<orders[i].orderItems.length;j++){ %>
+          <div class="container card my-3 border border-1" style="border-radius: 10px;">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <% if (orders[i] && orders[i].dateOrdered) { %>
+                  <% var date = new Date(orders[i].dateOrdered); %>
+                  <h6 class="text-muted mb-0">Order Date: <%= date.toLocaleDateString('en-US') %></h6>
+                  <p class="small text-muted mb-0">Order ID:<%= orders[i]._id %> </p>
+                <% } else { %>
+                  <h6 class="text-muted mb-0">Order Date: N/A</h6>
+                  <p class="small text-muted mb-0">Order ID:<%= orders[i]._id %> </p>
+                <% } %>
+              </div>
+              
+              <!-- Start products loop -->
+              <div class="card shadow-0 border mb-4">
+                <div class="card-body">
+                  <div class="row">
+                   
+                    <div class="col-md-2 text-center">
+                      <p class="text-muted mb-0"><%=orders[i].orderItems[j].productId.name %></p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <div class="d-flex justify-content-between">
+                        
+                        <p class="text-muted mb-0 small" >Price: &#8377;<%= orders[i].orderItems[j].productId.price %></p>
+                      </div>
+                    </div>
+                    <div class="col-md-4"></div> <!-- Empty column to divide space equally -->
+                  </div>
+                </div>
+              </div>
+
+        <!-- End products loop -->
+        <div class="d-flex justify-content-between pt-2 align-items-center">
+          <div>
+            <!-- <p class="fw-bold mb-0">Order Details</p> -->
+            <p class="text-muted mb-0 pt-2">Order Status: <%= orders[i].status %></p>
+            <p class="text-muted mb-0 pt-2">Payment Method: <%= orders[i].paymentMethod %></p>
+          </div>
+          <!-- <h4 class="text-muted mb-0"><span class="fw-bold">Total: </span>&#8377;<%= orders[i].orderItems[j].grandTotal %></h4> -->
+        </div>
+      </div>
+      <div class="row card-footer border-0 py-4" style="background-color: #221e1e; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;"> 
+          <!-- Order buttons and actions -->
+      <%if(orders[i].status==="delivered"){%>
+              <a  href="/invoice/<%=orders[i]._id %> "class="btn btn-primary text-align ">Get invoice</a>
+              <%}%>
+            <%if(orders[i].status==="placed" || orders[i].status==="shipped"){%>
+           <div class="d-flex align-items-start">
+            <a class="btn btn-warning text-white" onclick="cancelOrder('<%=orders[i].orderItems[j].productId._id%>','<%=orders[i]._id%>','<%=orders[i].status%>','<%=orders[i].orderItems[j].quantity%>','Cancel Requested')">Cancel Order</a>
+
+          </div>
+          <%}%>
+           <%if(orders[i].status==="delivered"){%>
+            <button onclick="returnOrder('<%=orders[i].orderItems[j].productId._id%>','<%=orders[i]._id%>','<%=orders[i].orderItems[j].quantity%>')" class="btn btn-danger">Return</button> 
+
+            <%}%>
+          
+          <!-- <div class="d-flex align-items-start">
+            <a class="btn btn-danger text-white" onclick="cancelOrder('<%= orders[i]._id %>','Return Requested')">Return Order</a>
+
+          </div> -->
+
+
+          <%if(orders[i].status=='refund-approved'){%>
+            <td><a>Cash debited to wallet</a></td>
+        <%}%>
+        <%if(orders[i].status=='return-denied'){%>
+            <td><a>Oops!</a></td>
+        <%}%>   
+          <div class="d-flex align-items-start">
+            <a href="/viewOrderDetails?id=orderId" style="text-decoration: none;">
+              <button class="btn btn-secondary text-white" style="font-size: 17px;">View Details</button>
+            </a>
+          </div> 
+
+
+
+          
+
+                 
+        </div>
+        
+      
+      
     </div>
+<% } %>
+<% } %>
+<!-- End orders loop -->
     
   
   
@@ -307,5 +404,58 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script>
+  
+  function returnOrder(prdctId, orderId, status, qty) {
+  $.ajax({
+    url: '/returnOrder',
+    method: 'put',
+    data: {
+      orderId: orderId,
+      prdctId: prdctId,
+      qty: qty,
+      status: status
+    },
+    success: (response) => {      
+        location.reload();
+       
+    },
+    error: (xhr, textStatus, errorThrown) => {
+      console.error('AJAX request failed:', textStatus, errorThrown);
+    
+    }
+  });
+}
+
+      
+      function cancelOrder(prdctId,orderId,status,qty)
+      {
+        console.log(status)
+        $.ajax({
+          url:'/cancelOrder',
+          method:'put',
+          data: {
+            orderId: orderId,
+            prdctId:prdctId,
+            qty:qty,
+        status:status
+  
+          },
+          success:(response)=>
+          {
+            if(response)
+            {
+              location.reload()
+            }
+          }
+        })
+      }
+      
+      </script>
+
+
+
+
+
   </body>
 </html>

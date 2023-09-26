@@ -2,13 +2,11 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   name: {
-    type: String,
-  },
-  email: {
     type: String,
   },
   phone: {
@@ -30,7 +28,7 @@ const orderSchema = new mongoose.Schema({
       },
       total: {
         type: Number,
-        required: false,
+        required: true,
       },
     },
   ],
@@ -49,11 +47,8 @@ const orderSchema = new mongoose.Schema({
   dateOrdered: {
     type: Date,
     default: Date.now(),
-  },
-  deliveredDate: {
-    type: Date,
-    required: false,
-  },
+  }
+  
 });
 
 module.exports = mongoose.model("Order", orderSchema);

@@ -24,6 +24,23 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <style>
+      /* Define a class for the wishlist button */
+.wishlist-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the heart icon within the button */
+.wishlist-button i.fa-heart {
+    color: white;
+    margin-right: 5px;
+}
+
       /* Additional CSS styles for alignment */
       .quantity-control {
         max-width: 150px;
@@ -88,18 +105,21 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-5">
-              <div class="header__top__right">
-                <div class="header__top__links">
+             
+              <!-- <div class="header__top__left"> -->
+                <!-- <div class="header__top__links">
                   <a href="#">Sign in</a>
                   <a href="#">FAQs</a>
-                </div>
-                <div class="header__top__hover">
-                  <span>Usd <i class="arrow_carrot-down"></i></span>
+                </div> -->
+               
+                  <!-- <span>Usd <i class="arrow_carrot-down"></i></span>
                   <ul>
                     <li>USD</li>
                     <li>EUR</li>
                     <li>USD</li>
-                  </ul>
+                  </ul> -->
+                  <div class="header__top__hover">
+                    <a href="/login">Logout</a>
                 </div>
               </div>
             </div>
@@ -124,13 +144,13 @@
                   <a href="#">Pages</a>
                   <ul class="dropdown">
                     <li><a href="./about.html">About Us</a></li>
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shopping-cart.html">Shopping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
+                    <li><a href="/shop">Shop Details</a></li>
+                    <li><a href="/cart">Shopping Cart</a></li>
+                    <li><a href="/checkOut">Check Out</a></li>
+                    <!-- <li><a href="./blog-details.html">Blog Details</a></li> -->
                   </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
+                <!-- <li><a href="./blog.html">Blog</a></li> -->
                 <li><a href="./contact.html">Contacts</a></li>
               </ul>
             </nav>
@@ -140,7 +160,7 @@
               <a href="#" class="search-switch"
                 ><img src="img/icon/search.png" alt=""
               /></a>
-              <a href="#"><img src="img/icon/heart.png" alt="" /></a>
+              <!-- <a href="#"><img src="img/icon/heart.png" alt="" /></a> -->
               <a href="/cart"
                 ><img src="img/icon/cart.png" alt="" /> <span>0</span></a
               >
@@ -226,9 +246,9 @@
                       method="post"
                     >
                       <!-- <a href="/add-to-wishlist?id=<%=singleProduct._id %>"><i class="fa fa-heart"></i> add to wishlist</a> -->
-                      <button type="submit">
-                        <i class="fa fa-heart"></i>add to wishlist
-                      </button>
+                      <button type="submit" class="wishlist-button">
+                        <i class="fa fa-heart"></i> Add to Wishlist
+                    </button>
                     </form>
                   </div>
                 </div>

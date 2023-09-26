@@ -4,19 +4,26 @@ const path=require("path");
 const express =require("express"); 
 const session=require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app=express();
 mongoose.connect("mongodb://127.0.0.1:27017/KidzFashion");
 
 
+var easyinvoice = require('easyinvoice');
+var fs = require('fs');
+
+var data = {};
+
+
 const dotenv=require('dotenv');
-dotenv.config({path:"./.env"})
+//dotenv.config({path:"./.env"})
+
+
 
 const userRoute=require('./routes/userRoute');
 //global middlewares
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
++
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
@@ -44,6 +51,19 @@ app.use('/',userRoute);
 // //for admin route
  const adminRoute=require('./routes/adminRoute');
  app.use('/admin',adminRoute);
+ 
+ const errorRoute=require('./routes/errorRoute');
+ app.use(errorRoute)
+//  app.listen(process.env.PORT,()=>{
+//   console.log('server started at http://localhost:${process.env.PORT}');
+//  });
+
+
+
+ easyinvoice.createInvoice(data, function (result) {
+
+  fs.writeFileSync("invoice.pdf", result.pdf, 'base64');
+});
 
 
 

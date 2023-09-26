@@ -5,41 +5,177 @@
     <%-include ('../partials/admin-header.ejs') %>
 
 <!-- User Listing Table-->
+
 <div class="table-responsive">
-    <table class="table m-0 table-striped">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>address</th>
-                <th>grandTotal</th>
-                <th>status</th>
-                <th>paymentMethod</th>
-                <th>dateOrdered</th>
-                <th>deliveredDate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% order.forEach((Order) => { %>
-            <tr>
-                <td><%= Order.name %></td>
-                <td class="text-muted"><%=Order.address %></td>
-                <td class="text-muted"><%= Order.grandTotal %></td>
-                <td class="text-muted"><%= Order.status %></td>
-                <td class="text-muted"><%#= Order.paymentMethod %></td>
-                <td class="text-muted"><%= Order.dateOrdered.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></td>
-                <td class="text-muted"><%#= Order.orderItems %></td>
-                <td class="text-muted"><%#= Order.deliveredDate %></td>
-            </tr>
-            <% }); %>
+    <table class="table" id="order-table">
+      <thead>
+        <tr>
+          <th scope="col">Number</th>
+          <th scope="col">Order Date</th>
+          <th scope="col">Product Details</th>
+          <th scope="col">grandTotal</th>
+           <th scope="col">Order Status</th>
+          <th scope="col">Action</th>
+          <!-- <th scope="col">Action</th> -->
+        </tr>
+      </thead>
+  
+      
+            
+            <tbody>
+                <% for (let i = 0; i < order.length; i++) { %>
+
+       
+                    <tr>
+                      <td> <% for(let j=0;j< order[i].orderItems.length;j++){ %>
+                      <% if(j==0){ %>
+                        <div>
+                          <p><%= i+1  %></p>
+                        </div>
+                        <% } %><% } %>
+                      </td>
+                      <td>
+                        <%for(let j=0;j< order[i].orderItems.length;j++){%>
+                        <% if(j==0){%>
+                        <div>
+                          <p style="font-weight: 700;">Order Date: <%= order[i].dateOrdered.toLocaleDateString()%></p>
+        
+                        </div>
+                         <%}%> <%}%>
+                      </td>
+                      <td>
+                        <% for(let j=0;j< order[i].orderItems.length;j++){ %>
+                          <div class="d-flex align-items-center">
+                        <img src="../product-images/<%=  order[i].orderItems[j].productId.images[0] %>" alt="Product Image" style="width: 40px; height: 40px;">
+                        <div class="ms-3">
+                        <%=  order[i].orderItems[j].productId.name %>
+                      </div>
+                    </div>
+                        <% } %>
+                      
+                      </td>
+                     
+                     
+                      <td>
+                        <% for (let j = 0; j < order[i].orderItems.length; j++) { %>
+                          <% if (j === 0) { %>
+                            <div>
+                              <p> <%= order[i].grandTotal %></p>
+                            </div>
+                          <% } %>
+                        <% } %>
+                      </td>
+                      
+                      
+              
+                      <td><%=  order[i].status %></td>
+                      
+                      <td>
+                        <a style="background-color: rgb(39, 129, 133); color: #fff" href="#" class="btn status-button" data-order-id=<%= order[i]._id %>>Status</a>
+                      </td>
+                      
+                 
+                    <!-- <td>
+                      <div><button class="btn bg-danger text-light"><a class="text-light text-decoration-none" href="/admin/cancelorder?orderId=<%= order[i]._id%>">Cancel</a></button></div>
+                    </td> -->
+               
+                <% } %>
+
+
+                <div id="changeStatusModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      <h3>Change Order Status</h3>
+                      <form id="statusForm" action="/admin/updateOrderStatus" method="post">
+                        <div class="mb-3">
+                          <label for="status">Status:</label>
+                          <select class="form-select" id="status" name="statuss">
+                            <option value="pending">Pending</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="returned">Returned</option>
+                            <option value="returned">Return accepted</option>
+                            <option value="returned">Return denied</option>
+
+                          </select>
+                        </div>
+                        <input type="text" name="orderId" id="orderId" hidden>  
+                        <div class="buttons">
+                          <button type="submit" class="btn btn-primary" >Save</button>
+                          <button type="button" class="btn btn-secondary" id="cancelButton" >Cancel</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+            
             
         </tbody>
     </table>
 
 
 
+ 
 
 
-
+  <script>
+    $(document).ready(function() {
+      $('.table').DataTable();
+    });
+  
+  
+  </script>
+  <script>
+    // Existing code
+    // ...
+  
+    // Event listener for status button click
+    var modal = document.getElementById('changeStatusModal');
+    var cancelButton = document.getElementById('cancelButton');
+  // Event listener for status button click
+  var statusButtons = document.getElementsByClassName('status-button');
+  for (var i = 0; i < statusButtons.length; i++) {
+    statusButtons[i].addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default link behavior
+      var orderId = this.getAttribute('data-order-id');
+     
+      openChangeStatusModal(orderId);
+    });
+  }
+  cancelButton.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default button behavior
+      closeChangeStatusModal();
+    });
+  // Function to open the modal
+  function openChangeStatusModal(orderId) {
+    modal.style.display = 'block';
+    document.getElementById('statusForm').setAttribute('data-order-id', orderId);
+    document.getElementById('orderId').value = orderId;
+    console.log(document.getElementById('orderId').value)
+  
+  
+  }
+  
+  // Save order status
+  // Save order status
+  function saveOrderStatus() {
+    var status = document.getElementById('status').value;
+    var orderId = document.getElementById('statusForm').getAttribute('data-order-id');
+    console.log(typeof orderId)
+    // TODO: Implement logic to save the order status
+    document.getElementById('orderId').value = orderId;
+    console.log('Selected status:', status);
+    console.log('Order ID:', orderId);
+    closeChangeStatusModal();
+  }
+  
+  
+  
+  function closeChangeStatusModal() {
+      modal.style.display = 'none';
+    }
+  </script>
+  
 
 
 

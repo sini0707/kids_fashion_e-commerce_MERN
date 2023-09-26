@@ -22,25 +22,19 @@ const productSchema = new mongoose.Schema({
     type:Number,
     required:true
   }, 
-//  size:{
-//     type:String,
-//     required:true
-//   },
-//   productOffer:{
-//     type:Number,
-//    default:0
-   
-//   }, 
-//   offerPrice:{
-//     type:Number,
+ size:{
+    type:String,
+    enum:['S','M','L']
+  },
+  color:{
+    type:String,
+    enum:['black','blue','yellow']
+  },
+  stock: {
+    type: Number,
     
-//   },
-
-//   stock: {
-//     type: Number,
-//     default: 1,
-//     required:true
-//   },
+    required:true
+  },
   is_listed:{
 
     type:Boolean,

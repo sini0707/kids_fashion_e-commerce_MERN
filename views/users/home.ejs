@@ -3,15 +3,10 @@
     <%-include('../layouts/header.ejs') %>
 <head>
 </head>
-
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
+   <div id="preloder">
         <div class="loader"></div>
     </div>
-
-    <!-- Offcanvas Menu Begin -->
-    
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
@@ -29,9 +24,16 @@
             </div>
         </div>
         <div class="offcanvas__nav__option">
-            <a href="#" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
-            <a href="#"><img src="/img/icon/heart.png" alt=""></a>
+            <a href="/search" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
+            <a href="/wishList"><img src="/img/icon/heart.png" alt=""></a>
             <a href="/cart"><img src="/img/icon/cart.png" alt=""> <span>0</span></a>
+            <div class="price">
+                <% if (typeof cartCount !== 'undefined') { %>
+                <span><%= cartCount %></span>
+                <% } else { %>
+                <span>0</span>
+                <% } %>
+              </div>
             <div class="price">$0.00</div>
         </div>
         <div id="mobile-menu-wrap"></div>
@@ -39,9 +41,6 @@
             <p>Free shipping, 30-day return or refund guarantee.</p>
         </div>
     </div>
-    <!-- Offcanvas Menu End -->
-
-    <!-- Header Section Begin -->
     <header class="header">
         <div class="header__top">
             <div class="container">
@@ -54,17 +53,13 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <!-- <a href="/signup">Signup</a> -->
-                                <a href="/login">Login</a>
-                                <!-- <a href="/logout">Logout</a> -->
-
                             </div>
                             <div class="header__top__hover">
                                 <span>My Account <i class="arrow_carrot-down"></i></span>
                                 <ul>
                                     <li><a href="/profile">My Profile</a></li>
                                     <li><a href="/myOrders">myOrders</a></li>
-                                    <li><a href="/wishlist">Wishlist</a></li>
+                                    <li><a href="/wishList">Wishlist</a></li>
                                     <li><a href="/logout">Logout</a></li>
                                     
                                 </ul>
@@ -83,36 +78,24 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <nav class="header__menu mobile-menu">
-
-
-                        <nav>
-                            <!-- Your regular navigation links here -->
-                            
+                         <nav>
                             
                           </nav>
-                          
-                        <ul>
+                           <ul>
                             <li class="active"><a href="/home">Home</a></li>
                             <li><a href="/shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="/about.html">About Us</a></li>
-                                    <li><a href="/shop-details.html">Shop Details</a></li>
-                                    <li><a href="/shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="/checkout.html">Check Out</a></li>
-                                    <li><a href="/blog-details.html">Blog Details</a></li>
-                                </ul>
+                                    <li><a href="/shop">Shop Details</a></li>
+                                    <li><a href="/cart">Shopping Cart</a></li>
+                                    </ul>
                             </li>
-                            <li><a href="/blog.html">Blog</a></li>
-                            <li><a href="/contact.html">Contacts</a></li>
-                        </ul>
+                             </ul>
                     </nav>
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
-                        <a href="/search" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
-                        <a href="/wishList"><img src="/img/icon/heart.png" alt=""></a>
-                        <a href="#"><img src="/img/icon/cart.png" alt=""> <span>0</span></a>
+                      <a href="/cart"><img src="/img/icon/cart.png" alt=""> <span>0</span></a>
                         
                         <div class="price">
                             <% if (cartCount) { %>
@@ -128,10 +111,7 @@
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
     </header> 
-    <!-- Header Section End -->
-
-    <!-- Hero Section Begin -->
-    <section class="hero">
+     <section class="hero">
         <div class="hero__slider owl-carousel">
             <div class="hero__items set-bg" data-setbg="/img/back3.jpg">
                 <div class="container">
@@ -143,13 +123,7 @@
                                 <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
                                 commitment to exceptional quality.</p>
                                 <a href="/shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
-                                <div class="hero__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,14 +137,8 @@
                                 <h2>Fall - Winter Collections 2023</h2>
                                 <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
                                 commitment to exceptional quality.</p>
-                                
                                 <a href="/shop"  class="primary-btn">Shop now <span class="arrow_right"></span></a>
-                                <div class="hero__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
@@ -178,49 +146,7 @@
             </div>
         </div>
     </section> 
-    <!-- Hero Section End -->
-
-    <!-- Banner Section Begin -->
-     <!-- <section class="banner spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 offset-lg-4">
-                    <div class="banner__item">
-                        <div class="banner__item__pic"> -->
-                            <!-- <img src="/img/2.jpg" alt=""> -->
-                        <!-- </div>
-                        <div class="banner__item__text">
-                            <h2>Boys Clothing Collections </h2>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <div class="banner__item banner__item--middle">
-                        <div class="banner__item__pic">
-                            <img src="/img/3.jpg" alt="">
-                        </div>
-                        <div class="banner__item__text">
-                            <h2>Girls Clothing Collections</h2>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="banner__item banner__item--last">
-                        <div class="banner__item__pic">
-                            <img src="/img//download.jfif" alt="">
-                        </div>
-                        <div class="banner__item__text"> 
-                            <h2>Shoes Spring 2030</h2>
-                            <a href="#">Shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!-- Banner Section End -->
+   
 
     <!-- Product Section Begin -->
     <section class="product spad">
@@ -243,14 +169,12 @@
                                 <span class="label"><%= product.label %></span>
                             <% } %>
                             <ul class="product__hover">
-                                <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                            </ul>
+                                <li><a href="/wishList"><img src="img/icon/heart.png" alt=""></a></li>
+                                </ul>
                         </div>
                         <div class="product__item__text">
                             <h6><%= product.name %></h6>
-                            <a href="#" class="add-cart">+ Add To Cart</a>
+                            <a href="/addtocart?id=<%=product._id%>" class="add-cart">+ Add To Cart</a>
                             <div class="rating">
                                 <% for (let i = 0; i < product.rating; i++) { %>
                                     <i class="fa fa-star"></i>
@@ -432,7 +356,7 @@
                     <div class="footer__widget">
                         <h6>NewLetter</h6>
                         <div class="footer__newslatter">
-                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                            <p>Be the first to know about new arrivals, look sales & promos!</p>
                             <form action="#">
                                 <input type="text" placeholder="Your email">
                                 <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -448,9 +372,9 @@
                         <p>Copyright ©
                             <script>
                                 document.write(new Date().getFullYear());
-                            </script>2020
+                            </script>2023
                             All rights reserved | This template is made with <i class="fa fa-heart-o"
-                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            aria-hidden="true"></i> by <a href="https://localhost:5000/home" target="_blank">KidZ Fashion</a>
                         </p>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>

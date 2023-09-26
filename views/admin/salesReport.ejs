@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ('../layouts/admin-Header.ejs') %>
+<%-include ('../partials/admin-header.ejs') %>
+<head>
+   
+    <title>Admin page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        
+        .navbar {
+            background-color: #333;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            margin: 0;
+            width: 100%;
+        }
+
+        .navbar-logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .sidebar {
+            background-color: #333;
+            height: 100vh;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sidebar li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .sidebar a:hover {
+            color: #0069d9;
+        }
+
+        .logout {
+            position: fixed;
+            bottom: 10px;
+            left: 15px;
+        }
+
+        
+                        
+                         
+        .sales-table {
+                              width: 100%;
+                              margin-bottom: 20px;
+                            }
+                            
+                            .sales-table th {
+                              background-color: #f8fafb;
+                              text-align: center;
+                              font-weight: bold;
+                            }
+                            
+                            .carousel-item {
+                              padding: 20px;
+                              text-align: center;
+                            }
+                            .carousel-control-custom {
+                              position: absolute;
+                              top: 50%;
+                              transform: translateY(-50%);
+                              background-color: rgba(255, 255, 255, 0.5);
+                              border: none;
+                              outline: none;
+                              font-size: 24px;
+                              padding: 10px;
+                              color: #333;
+                              cursor: pointer;
+                              transition: background-color 0.3s;
+                            }
+                            
+                            .carousel-control-custom:hover {
+                              background-color: rgba(247, 242, 242, 0.8);
+                            }
+                            
+                            .carousel-control-prev-custom {
+                              left: 0;
+                              color: black;
+                            }
+                            
+                            .carousel-control-next-custom {
+                              right: 0;
+                              
+                            }
+                            .carousel-text-left,
+                            .carousel-text-right {
+                              position: absolute;
+                              top: 0;
+                              bottom: 0;
+                              display: flex;
+                              align-items: center;
+                              font-size: 12px;
+                              font-weight: bold;
+                              text-transform: uppercase;
+                              color: #555;
+                            }
+                            
+                            .carousel-text-left {
+                              left: 0;
+                              margin-left: 20px;
+                            }
+                            
+                            .carousel-text-right {
+                              right: 0;
+                              margin-right: 20px;
+                            }
+                            .carousel-item {
+                              position: relative;
+                            }
+                            .carousel-control-custom.carousel-control-prev-custom .fa-chevron-left,
+                            .carousel-control-custom.carousel-control-next-custom .fa-chevron-right {
+  color: black;
+}
+    </style>
+</head>
+</head>
+<body>
+    <div class="">
+        <nav class="navbar">
+            <a href="/admin/home" class="navbar-logo">KidZ-Fashion</a>
+            <a href="/admin/logout">Logout</a>
+        </nav>
+        
+
+
+        <section class="content-main">
+
+
+          <div class="container-fluid pt-4 px-4">
+              <div class=" text-center rounded p-4">
+                  <div class="d-flex align-items-center justify-content-between mb-4">
+                    <td colspan="2" style="text-align: center;">
+                      <h6 class="mb-0, margin-left:10">Recent Sales</h6>
+                    </td>
+                      <div style="border: 1px solid whitesmoke; padding: 10px; box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
+                          <form action="/admin/filterorder" method="post">
+                              <input class="filterdate" name="preDate" value="<%= preDate %>" type="date">
+                              <input class="filterdate" name="postDate" value="<%= postDate %>" type="date">
+                              <button type="submit" style="padding:0 15px;" class="btn btn-danger">Filter</button>
+                          </form>
+                      </div>
+                  </div>
+                  <div class="table-responsive" id="salesexcel">
+                      <table id="orderTable" class="table text-start align-middle table-bordered table-hover mb-0">
+                          <thead>
+                              <tr>
+                                  <th scope="col">NO</th>
+                                  <th scope="col">Customer</th>
+                                  <th scope="col">Date</th>
+                                  <th scope="col">Products</th>
+                                  <th scope="col">Quantity</th>
+                                  <th scope="col">Amount</th>
+                                  <th scope="col">Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% if (locals.order_data) { %>
+                                  <% order_data.forEach(function(orders, index) { %>
+                                      <tr class="blackcolor">
+                                          <td>
+                                              <%= index + 1 %>
+                                          </td>
+                                          <td>
+                                              <%= orders.userId.firstname + " " +orders.userId.lastname %>
+                                          </td>
+                                          <td>
+                                              <%= orders.dateOrdered.toLocaleDateString() %>
+                                          </td>
+                                          <td>
+                                              <div class="order_pro">
+                                                  <% orders.orderItems.forEach((items)=> { %>
+                                                      <ul>
+                                                          <li>
+                                                              <%= items.productId.name %>
+                                                          </li>
+                                                      </ul>
+                                                      <% }) %>
+                                              </div>
+                                          </td>
+                                          <td>
+                                              <% orders.orderItems.forEach((items)=> { %>
+                                                  <ul>
+                                                      <li style="list-style: none;">
+                                                          <%= items.quantity %>
+                                                      </li>
+                                                  </ul>
+                                                  <% }) %>
+                                          </td>
+                                          <td>₹<%= orders.grandTotal %>
+                                          </td>
+                                          <td>
+                                              <%= orders.status %>
+                                          </td>
+                                      </tr>
+                                      <% }) %>
+                                          <% } %>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+          </div>
+
+
+         
+             
+<%-include ('../partials/admin-sidebar.ejs') %>
+<%- include ('../layouts/admin-Footer.ejs') %>

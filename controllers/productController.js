@@ -2,6 +2,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
+const { log } = require("console");
 
 ///load product list
 
@@ -39,6 +40,8 @@ const createProduct = async (req, res) => {
   const category = req.body.category;
 
   const price = req.body.price;
+  const stock = req.body.stock
+  console.log(stock)
 
   const filesArray = Object.values(req.files).flat();
   // console.log(filesArray);    
@@ -48,7 +51,7 @@ const createProduct = async (req, res) => {
   const newProduct = new Product({
     name,
     description,
-   
+    stock,
     category,
     price,
     images: arrImages,
@@ -78,6 +81,7 @@ const editProductList = async (req, res) => {
     const productCategory = await Category.find({ _id: category });
     const allCategory = await Category.find();
 
+  
     res.render("editProductList1", {
       productData,
       productCategory,
@@ -98,6 +102,7 @@ const updateProductList = async (req, res) => {
     const name = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
+    const stock = req.body.stock
     const category = req.body.category;
     const status = req.body.status === "listed";
     const filesArray = Object.values(req.files).flat();
@@ -117,6 +122,7 @@ const updateProductList = async (req, res) => {
           name: name,
           description: description,
           price: price,
+          stock:stock,
           category: category,
           is_listed: status,
           images: updatedImages,
@@ -150,7 +156,7 @@ const updateProductList = async (req, res) => {
 const AddListProduct = async (req, res) => {
   try {
     const id = req.query.id;
-    await Product.findByIdAndUpdate({ _id: id }, { $set: { is_listed : true } });
+    await Product.findByIdAndUpdate({ _id: id }, { $set: { is_listed : false } });
     res.redirect("/admin/productList");
   } catch (error) {
     console.log(error);
@@ -162,7 +168,7 @@ const AddListProduct = async (req, res) => {
 const UnListProduct = async (req, res) => {
   try {
     const id = req.query.id;
-    await Product.findByIdAndUpdate({ _id: id }, { $set: { is_listed: false } });
+    await Product.findByIdAndUpdate({ _id: id }, { $set: { is_listed: true } });
     res.redirect("/admin/productList");
   } catch (error) {
     console.log(error);

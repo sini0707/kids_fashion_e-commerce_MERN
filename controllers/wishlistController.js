@@ -39,12 +39,13 @@ const getWishList = async (req, res) => {
 
 
     const userId = req.session.user_id;
-  
+  console.log("hiiii");
     const proId = req.body.proId;
 
     wishListHelper
       .removeProductWishlist(proId, userId)
       .then((response) => {
+        console.log("hllll");
         res.send(response);
       });
   }

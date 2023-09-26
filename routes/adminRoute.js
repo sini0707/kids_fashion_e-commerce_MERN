@@ -44,7 +44,7 @@ admin_route.use(express.static('public'));
 const adminController = require('../controllers/adminController');
 const categoryController = require('../controllers/categoryController');
 const productController = require("../controllers/productController");
-
+const couponController = require('../controllers/couponController')
 
 
 admin_route.get('/adminLogin',adminController.loadLogin);
@@ -81,9 +81,33 @@ admin_route.post(
 admin_route.post('/editProductList1', multipleUpload, productController.updateProductList);
 // admin_route.get('/deleteProduct',productController.deleteProduct);
 
-admin_route.get('/UnList', productController.UnListProduct);
-admin_route.get('/AddList', productController.AddListProduct);
+admin_route.get('/UnListProduct', productController.UnListProduct);
+admin_route.get('/AddListProduct', productController.AddListProduct);
 admin_route.get('/ordersList',adminController.ordersLoad);
+
+admin_route.post('/updateOrderStatus',adminController.updateOrderStatus)
+
+
+
+
+
+//coupon
+
+admin_route.get('/addCoupon',couponController.loadCouponAdd);
+admin_route.post('/addCoupon',couponController.addCoupon);
+admin_route.get('/generate-coupon-code',couponController.generateCouponCode)
+admin_route.get('/couponList',couponController.couponList)
+
+admin_route.delete('/removeCoupon',couponController.removeCoupon)
+
+
+ admin_route.get('/salesReport',adminController.salesreport);
+admin_route.post("/filterorder",adminController.filterorder);
+
+
+      
+
+
 
 
 
