@@ -450,6 +450,9 @@ console.log(selectedPaymentOption)
             console.log(data.orderid,'fhdifhd')
             console.log('hiiii')
             location.href = '/orderDetails?orderid='+data.orderid
+          }else if(selectedPaymentOption === 'Wallet'){
+            console.log("wallet reaching here")
+            location.href = '/orderDetails?orderid='+data.orderid
           }else{
             razorpay(data)
           }
@@ -671,9 +674,7 @@ console.log("reaching okkk")
 
   }
 
-
-  // 
-
+  //  
 
 
  async  function verifypayment() {
@@ -734,6 +735,7 @@ async function paymentFailed() {
     alert('An error occurred. Please try again later.');
   }
 }
+
 
 
 

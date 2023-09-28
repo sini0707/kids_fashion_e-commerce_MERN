@@ -11,12 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>KidZ-Fashion | Template</title>
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
     rel="stylesheet">
-
-    <!-- Css Styles -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
@@ -28,12 +24,7 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <!-- <div id="preloder">
-        <div class="loader"></div>
-    </div> -->
-
-    <!-- Offcanvas Menu Begin -->
+   
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__option">
@@ -43,17 +34,11 @@
                 <a href="/logout">Logout</a>
             </div>
             <div class="offcanvas__top__hover">
-                <!-- <span>Usd <i class="arrow_carrot-down"></i></span>
-                <ul>
-                    <li>USD</li>
-                    <li>EUR</li>
-                    <li>USD</li>
-                </ul> -->
+               
             </div>
         </div>
         <div class="offcanvas__nav__option">
-            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-            <a href="#"><img src="img/icon/heart.png" alt=""></a>
+            
             <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
             <div class="price">₹0.00</div>
         </div>
@@ -77,8 +62,7 @@
                     <div class="col-lg-6 col-md-5">
                         <div class="header__top__right">
                             <div class="header__top__links">
-                                <!-- <a href="/signup">Signup</a> -->
-                                <!-- <a href="/login">Login</a> -->
+                               
                                 <a href="/logout">Logout</a>
                             </div>
                            
@@ -101,22 +85,15 @@
                             <li class="active"><a href="/shop">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="dropdown">
-                                    <li><a href="./about.html">About Us</a></li>
-                                    <li><a href="/single-product">Shop Details</a></li>
+                                    <li><a href="/shop">Shop Details</a></li>
                                     <li><a href="/cart">Shopping Cart</a></li>
-                                    <li><a href="/checkOut">Check Out</a></li>
-                                    <!-- <li><a href="./blog-details.html">Blog Details</a></li> -->
-                                </ul>
+                                    </ul>
                             </li>
-                            <!-- <li><a href="./blog.html">Blog</a></li> -->
-                            <li><a href="./contact.html">Contacts</a></li>
-                        </ul>
-                    </nav>
+                            </nav>
                 </div>
                 <div class="col-lg-3 col-md-3">
                     <div class="header__nav__option">
-                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-                        <!-- <a href="#"><img src="img/icon/heart.png" alt=""></a> -->
+                        
                         <a href="/cart"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
                         <div class="price">
                             <% if (typeof cartCount !== 'undefined') { %>
@@ -132,9 +109,6 @@
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
     </header>
-    <!-- Header Section End -->
-
-    <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
             <div class="row">
@@ -151,15 +125,11 @@
             </div>
         </div>
     </section>
-    <!-- Breadcrumb Section End -->
-
-    <!-- Shopping Cart Section Begin -->
     <section class="shopping-cart spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="shopping__cart__table">
-                        <!-- cart.ejs - your cart page template -->
                         <table>
                             <thead>
                                 <tr>
@@ -174,8 +144,6 @@
                                     <table>
                                         <% data.forEach(item => { %>
                                           <tr>
-                                            
-                                            
                                             <td class="product__cart__item">
                                               <div class="product__cart__item__pic">
                                                 <img style="height: 100px; width: 90px;" src="/product-images/<%= item.carted.images[0] %>" alt="<%= item.carted.name %>">
@@ -186,12 +154,7 @@
                                               </div>
                                             </td>
                                             <td class="quantity__item">
-                                              <div class="quantity">
-                                                <!-- <div class="qty-prod">
-                                                    <span class="material-symbols-outlined decrement" style="cursor: pointer;">remove</span>
-                                                    <p class="quantityValue"  data-id="<%= item.carted._id %>" ><%= item.quantity %></p>
-                                                    <span class="material-symbols-outlined increment" style="cursor: pointer;">add</span>
-                                                </div> -->
+                                              
                                                 <div class="qty-prod">
                                                     <span class="material-symbols-outlined decrement" style="cursor: pointer;">remove</span>
                                                     <p class="quantityValue" data-id="<%= item.carted._id %>"><%= item.quantity %></p>
@@ -225,45 +188,28 @@
                                 <a href="/shop">Continue Shopping</a>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
                  <div class="col-lg-4">
-                    <!-- <div class="cart__discount"> 
-                        <h6>Discount codes</h6>
-                        <form action="#">
-                            <input type="text" placeholder="Coupon code">
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div> -->
-                    <div class="cart__total">
+               <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
                             <li>Subtotal <span><%=totalPrice%></span></li>
                             <li>GrandTotal <span><%=totalPrice%></span></li>
                         </ul>
                         <a href="/checkOut" class="primary-btn">Proceed to checkout</a>
-                        <!-- <a href="/checkOut?cartData=<%= JSON.stringify(data) %>">Proceed to checkout</a> -->
-
-                    </div>
+                       </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Shopping Cart Section End -->
-
-    <!-- Footer Section Begin -->
     <footer class="footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <!-- <a href="#"><img src="img/footer-logo.png" alt=""></a> -->
                         </div>
                         <p>The customer is at the heart of our unique business model, which includes design.</p>
                         <a href="#"><img src="img/payment.png" alt=""></a>
@@ -274,9 +220,8 @@
                         <h6>Shopping</h6>
                         <ul>
                             <li><a href="#">Clothing Store</a></li>
-                            <!-- <li><a href="#">Trending Shoes</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Sale</a></li> -->
+                            <li><a href="#">Boys Collections</a></li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -307,7 +252,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="footer__copyright__text">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                       
                         <p>Copyright ©
                             <script>
                                 document.write(new Date().getFullYear());
@@ -315,7 +260,7 @@
                             All rights reserved | This template is made with <i class="fa fa-heart-o"
                             aria-hidden="true"></i> by <a href="localhost:5000/home" target="_blank">KidZ Fashion</a>
                         </p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        
                     </div>
                 </div>
             </div>

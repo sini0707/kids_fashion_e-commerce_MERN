@@ -187,7 +187,10 @@
                           </thead>
                           <tbody>
                               <% if (locals.order_data) { %>
+                                <%console.log("Order data from ejs",order_data,"finding")%>
+
                                   <% order_data.forEach(function(orders, index) { %>
+
                                       <tr class="blackcolor">
                                           <td>
                                               <%= index + 1 %>

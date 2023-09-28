@@ -73,11 +73,19 @@
                       <td>
                         <a style="background-color: rgb(39, 129, 133); color: #fff" href="#" class="btn status-button" data-order-id=<%= order[i]._id %>>Status</a>
                       </td>
+                      <td>
+                      <%if(order[i].status == 'cancelled' || order[i].status == 'returned'){%>
+                        <form action="/admin/refund?id=<%=order[i].id%>" method="post">
+                          <button type="submit" class="btn bg-danger text-light">Refund</button>
+                        </form>
+                   
+                      <% } %>
+                    </td>
+
+
                       
                  
-                    <!-- <td>
-                      <div><button class="btn bg-danger text-light"><a class="text-light text-decoration-none" href="/admin/cancelorder?orderId=<%= order[i]._id%>">Cancel</a></button></div>
-                    </td> -->
+                   
                
                 <% } %>
 
@@ -95,7 +103,8 @@
                             <option value="delivered">Delivered</option>
                             <option value="returned">Returned</option>
                             <option value="returned">Return accepted</option>
-                            <option value="returned">Return denied</option>
+                            <option value="Oopsss">Return denied</option>
+                            <option value="cancelled">Accept cancel</option>
 
                           </select>
                         </div>

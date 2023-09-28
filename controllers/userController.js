@@ -228,18 +228,18 @@ const userLogout = async (req, res) => {
   }
 };
 
-const searchCategories = async (req, res) => {
-  const searchTerm = req.query.q;
-  try {
-    const searchResults = await Category.find({
-      name: { $regex: searchTerm, $options: "i" }, // Case-insensitive search
-    });
-    res.status(200).json(searchResults);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "An error occurred while searching:Internal Server Error" });
-  }
-};
+// const searchCategories = async (req, res) => {
+//   const searchTerm = req.query.q;
+//   try {
+//     const searchResults = await Category.find({
+//       name: { $regex: searchTerm, $options: "i" }, // Case-insensitive search
+//     });
+//     res.status(200).json(searchResults);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "An error occurred while searching:Internal Server Error" });
+//   }
+// };
 
 const loadForgotPassword = async (req, res) => {
   try {
@@ -272,19 +272,15 @@ const verifyForgetOTP = async (req, res) => {
     const otp = req.body.OTP;
     const storedMobile = req.session.mobile;
     console.log(storedMobile);
-
-    // Call the verifyCode function and await its result
-    const isCodeValid = await verifyCode(storedMobile, otp);
-
-    if (!isCodeValid) {
-      // Use strict inequality and negate the condition
-      return res.render("sendOtp", { message: "Invalid OTP" });
+   const isCodeValid = await verifyCode(storedMobile, otp);
+     if (!isCodeValid) {
+       return res.render("sendOtp", { message: "Invalid OTP" });
     }
 
     return res.render("resetpassword");
   } catch (error) {
     console.log(error.message);
-    // Handle the error properly, e.g., return an error page
+    
   }
 };
 
@@ -706,12 +702,18 @@ const displayProduct = async (req, res) => {
       .skip(skip)
       .limit(limit)
       .populate("category");
+      const paginationLinks = [];
+    for (let i = 1; i <= totalPages; i++) {
+      const link = `?page=${i}&search=${searchQuery}`;
+      paginationLinks.push(link);
+    }
    
     res.render("shop", {
       allcategory: products,
       allProducts: products,
       currentPage: page,
       totalPages,
+      paginationLinks,
     });
   } catch (error) {
     console.log(error.message);
@@ -1065,14 +1067,27 @@ const loadMyOrder = async (req, res) => {
 
 const walletPayment = async (req, res) => {
   try {
+    const encodeWallet = JSON.stringify(wallet);
+    const total = req.body.total;
+    const user = await User.findById({ _id: req.session.user_id });
 
-    const total= req.body.total;
-    const user = await User.findById({ _id:req.session.user_id });
-    user.wallet -= total;
-    await user.save();
-    return res
-      .status(200)
-      .json({ success: true, message: "Payment successful" });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    if (user.wallet >= total) {
+      // Sufficient balance for payment
+      user.wallet -= total;
+      await user.save();
+
+      // Payment successful, render checkout success page
+      return res.render("checkoutSuccess", { total,encodeWallet});
+    } else {
+      // Insufficient balance for payment
+      return res.render("checkoutError", {
+        message: "Insufficient wallet balance for payment",
+      });
+    }
   } catch (error) {
     console.error(error);
     return res
@@ -1080,6 +1095,7 @@ const walletPayment = async (req, res) => {
       .json({ success: false, message: "An error occurred" });
   }
 };
+
 
 module.exports = {
   loadRegister,
@@ -1090,7 +1106,7 @@ module.exports = {
   verifyOtp,
   loadHome,
   userLogout,
-  searchCategories,
+  // searchCategories,
   loadForgotPassword,
   forgotPasswordOtp,
   resetPassword,

@@ -3,17 +3,9 @@
 
 <%- include ('../layouts/admin-Header.ejs') %>
 <%-include ('../partials/admin-header.ejs') %>
-
-
-
-
-
-
 <div class="container-fluid">
-
-    <div class="row">
-    
-      <div class="col-lg-10 col-sm-10">
+<div class="row">
+ <div class="col-lg-10 col-sm-10">
         <div class="row">
           <div class="col-12">
             <!-- <h1>Sales Dashboard</h1> -->
@@ -36,14 +28,7 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-sm-3 col-md-2">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Total Profit</h5>
-                <p class="card-text"><%=lastProfit%></p>
-              </div>
-            </div>
-          </div> -->
+        
           <div class="col-sm-3 col-md-2">
             <div class="card">
               <div class="card-body">
@@ -52,14 +37,7 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-sm-3 col-md-2 ">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Total Cost</h5>
-                <p class="card-text"><%=cost%></p>
-              </div>
-            </div>
-          </div> -->
+         
         </div>
         <div class="row" style="margin-top: 70px;">
           <div class="col-sm-12 col-md-6" >
@@ -70,8 +48,7 @@
           </div>
         </div>
       </div>
-        <!-- <p>heloooooo, this is Dashboard</p>
-        <div><img src="/public/adminimage/Dashboard Screen for Quoting Software.png" alt=""></div> -->
+        
       </div>
     </div>
   </div>
@@ -81,8 +58,7 @@
   
   
   <script>
-    // Sales graph data
-    // var salesData =  JSON.stringify(salesData) 
+    
    var months=JSON.parse(decodeURIComponent('<%=month%>'))
    var monthlySales=JSON.parse(decodeURIComponent('<%=monthlySales%>'))
    if(months==undefined){
@@ -100,17 +76,13 @@
       xaxis: {
         categories: months
       },
-      // colors: ['#FF4D4D', '#FFB84D', '#5EBD5E', '#4D79FF', '#A64DFF', '#FF4D88', '#4DFFFF', '#ADADAD', '#FFEA5D', '#A6FF4D', '#FF914D', '#4DADFF']
+      
     };
   
     var salesChart = new ApexCharts(document.querySelector("#salesGraph"), salesOptions);
     salesChart.render();
   
-    // Payment pie chart data
-  //   var paymentData =[
-  //   { _id: 'cashOnDelivery', totalGrandTotal: 89216 },
-  //   { _id: 'online-payment', totalGrandTotal: 3666 }
-  // ]
+   
     
   var series = JSON.parse(decodeURIComponent('<%=series%>'))
   var labels =JSON.parse(decodeURIComponent('<%=labels%>'))

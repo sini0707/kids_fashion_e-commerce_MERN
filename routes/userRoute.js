@@ -110,7 +110,7 @@ user_route.post('/',userController.editAddress);
 
 user_route.get('/orderDetails',auth.isLogin,paymentController.orderDetailsLoad);
 
-user_route.get('/viewOrderDetails',paymentController.orderDetailsLoad);
+user_route.get('/viewOrderDetails',paymentController.viewOrderDetails );
 
 
 

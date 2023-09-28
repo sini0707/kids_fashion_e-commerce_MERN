@@ -7,7 +7,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 // const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const app=express();
-mongoose.connect("mongodb://127.0.0.1:27017/KidzFashion");
+mongoose.connect("mongodb+srv://sinij7:RBaoo2YFIvTLxQl5@cluster0.zcot8rt.mongodb.net/?retryWrites=true&w=majority");
 
 
 var easyinvoice = require('easyinvoice');
@@ -18,7 +18,7 @@ var data = {};
 
 const dotenv=require('dotenv');
 //dotenv.config({path:"./.env"})
-
+   
 
 
 const userRoute=require('./routes/userRoute');
@@ -26,16 +26,16 @@ const userRoute=require('./routes/userRoute');
 +
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cookieParser());
+app.use(cookieParser());       
 
 const store = new MongoDBStore({
-  uri: 'mongodb://127.0.0.1:27017/KidzFashion',
+  uri: 'mongodb+srv://sinij7:RBaoo2YFIvTLxQl5@cluster0.zcot8rt.mongodb.net/?retryWrites=true&w=majority',
   collection: 'sessions'
 });
 app.use(
   session({
     store,
-    secret:'my-secret',
+    secret:'my-secret',   
     resave: false,
     saveUninitialized: false,
     cookie: {
