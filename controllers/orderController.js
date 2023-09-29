@@ -184,7 +184,7 @@ const verifyCoupon = (req, res) => {
      
 
   
-  
+   
   module.exports = {
     verifyCoupon,
     applyCoupon,

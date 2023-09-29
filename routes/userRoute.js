@@ -36,7 +36,7 @@ user_route.use(session({
 
 user_route.get('/signup',auth.isLogout,userController.loadRegister);
 user_route.post('/signup',userController.insertUser);
-user_route.get('/',auth.isLogout,userController.loginLoad);
+user_route.get('/',userController.loadHome);
 user_route.get('/login',auth.isLogout,userController.loginLoad);
 user_route.post('/login',userController.verifyLogin);
 user_route.get('/home',userController.loadHome);

@@ -221,9 +221,6 @@ button.edit-address {
                                       </label>
                                       
                                   </div>
-                               
-                      
-                           
                             <% }) %>
                             
                             <div class="col-md-12 form-group">
@@ -240,16 +237,6 @@ button.edit-address {
                               <a href="/profile">click here</a>
 
                           <%}%>
-                         
-                         
-
-
-
-
-
-                           
-                        
-
                         </div>
                         </div>
                     </form>
@@ -325,9 +312,8 @@ button.edit-address {
                             <span class="checkmark"></span>
                         </label>
                     </div>
-
+                    <button type="submit" class="site-btn" id="placeOrderButton" disabled onclick="address()">PLACE ORDER</button>
                     
-                      <button type="submit" class="site-btn" onclick="address()">PLACE ORDER</button>
                   </form>
                   <div id="errorText" style="color: red;"></div>
               </div>
@@ -336,6 +322,47 @@ button.edit-address {
 </section>
 
 <p id="message"></p>
+
+
+
+<script>
+  // Get all the relevant checkboxes
+  const shippingAddressCheckboxes = document.querySelectorAll('input[name="shippingAddress"]');
+  const paymentOptionCheckboxes = document.querySelectorAll('input[name="paymentOption"]');
+  
+  // Get the "PLACE ORDER" button
+  const placeOrderButton = document.getElementById('placeOrderButton');
+
+  // Function to check if at least one checkbox is checked
+  function isAnyCheckboxChecked(checkboxes) {
+    for (const checkbox of checkboxes) {
+      if (checkbox.checked) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Add event listeners to the checkboxes
+  shippingAddressCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const isShippingAddressChecked = isAnyCheckboxChecked(shippingAddressCheckboxes);
+      const isPaymentOptionChecked = isAnyCheckboxChecked(paymentOptionCheckboxes);
+      // Enable the button if at least one checkbox is checked in either section
+      placeOrderButton.disabled = !(isShippingAddressChecked && isPaymentOptionChecked);
+    });
+  });
+
+  paymentOptionCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      const isShippingAddressChecked = isAnyCheckboxChecked(shippingAddressCheckboxes);
+      const isPaymentOptionChecked = isAnyCheckboxChecked(paymentOptionCheckboxes);
+      // Enable the button if at least one checkbox is checked in either section
+      placeOrderButton.disabled = !(isShippingAddressChecked && isPaymentOptionChecked);
+    });
+  });
+</script>
+
 
 
 <script>

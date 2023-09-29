@@ -31,7 +31,11 @@ const getWishList = async (req, res) => {
   
     console.log(prodId,userId);
     wishListHelper.addWishList(userId, prodId).then((response) => {
-    res.send(response);
+    if(response){
+      res.redirect('/wishList')
+    }else{
+      console.log("error")
+    }
     });
   }
 

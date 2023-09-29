@@ -243,6 +243,6 @@ module.exports = {
   placeOrder,
 
   verifyPayment,
-  paymentFailed,
+  paymentFailed,     
   viewOrderDetails,
 };

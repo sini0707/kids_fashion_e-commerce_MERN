@@ -37,7 +37,7 @@ const loadRegister = async (req, res) => {
 const insertUser = async (req, res) => {
   try {
     const email = req.body.email;
-   
+
     if (!isValidEmail(email)) {
       return res.render("signup", { message: "Invalid email format" });
     }
@@ -45,8 +45,8 @@ const insertUser = async (req, res) => {
     if (existingUser) {
       return res.render("signup", { message: "Email already exists" });
     }
-     const spassword = await securePassword(req.body.password);
-      const user = new User({
+    const spassword = await securePassword(req.body.password);
+    const user = new User({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       email: req.body.email,
@@ -108,11 +108,11 @@ const loginLoad = async (req, res) => {
 const verifyLogin = async (req, res) => {
   try {
     const email = req.body.email;
-    const password = req.body.password; 
+    const password = req.body.password;
     const userData = await User.findOne({ email: email });
     if (userData) {
       const passwordMatch = await bcrypt.compare(password, userData.password);
-    if (passwordMatch) {
+      if (passwordMatch) {
         if (userData.is_blocked === true) {
           return res.render("login", {
             message: "Your account is blocked. Please contact customer care!!!",
@@ -145,7 +145,7 @@ const sendOtp = async (mobileNumber) => {
   try {
     await client.verify.v2.services(verifyServiceSid).verifications.create({
       to: `+91${mobileNumber}`,
-      channel: "sms", 
+      channel: "sms",
     });
   } catch (error) {
     console.log(error.message);
@@ -155,7 +155,6 @@ const sendOtp = async (mobileNumber) => {
 
 const verifyCode = async (mobileNumber, code) => {
   try {
-   
     const verification = await client.verify.v2
       .services(verifyServiceSid)
       .verificationChecks.create({
@@ -164,9 +163,8 @@ const verifyCode = async (mobileNumber, code) => {
       });
 
     if (verification.status === "approved") {
-     
-     return true;
-       } else {
+      return true;
+    } else {
       return false;
     }
   } catch (error) {
@@ -206,6 +204,8 @@ const loadHome = async (req, res) => {
     const product = await Product.find();
     let cartCount = 0;
     const userId = req.session.user_id;
+    let username = await User.findById(userId);
+
     if (userId) {
       let cart = await Cart.findOne({ userId });
       if (cart) {
@@ -213,7 +213,12 @@ const loadHome = async (req, res) => {
         cartCount = cartProduct.length;
       }
     }
-    res.render("home", { product, cartCount });
+
+    res.render("home", {
+      username: username ? username.firstname : null,
+      product,
+      cartCount,
+    });
   } catch (error) {
     console.log(error.message);
   }
@@ -221,8 +226,10 @@ const loadHome = async (req, res) => {
 
 const userLogout = async (req, res) => {
   try {
+    console.log("working logout");
     req.session.destroy();
-    res.redirect("/login");
+
+    res.redirect("/");
   } catch (error) {
     console.log(error.message);
   }
@@ -255,7 +262,6 @@ const forgotPasswordOtp = async (req, res) => {
   const mobile = req.body.mobile;
   const userFound = await User.findOne({ mobile: mobile });
   if (!userFound) {
-
     return res.render("forgetPassword", {
       message: "Invalid Login credential",
     });
@@ -269,30 +275,31 @@ const forgotPasswordOtp = async (req, res) => {
 
 const verifyForgetOTP = async (req, res) => {
   try {
-    const otp = req.body.OTP;
-    const storedMobile = req.session.mobile;
-    console.log(storedMobile);
-   const isCodeValid = await verifyCode(storedMobile, otp);
-     if (!isCodeValid) {
-       return res.render("sendOtp", { message: "Invalid OTP" });
-    }
+    const verification = await client.verify.v2
+      .services(verifyServiceSid)
+      .verificationChecks.create({
+        to: `+91${req.session.mobile}`,
+        code: req.body.OTP,
+      });
 
-    return res.render("resetpassword");
+    if (verification.status === "approved") {
+      return res.render("resetpassword");
+    } else {
+      return res.render("sendOtp", { message: "Invalid OTP" });
+    }
   } catch (error) {
     console.log(error.message);
-    
   }
 };
 
 const forgotResendOtp = async (req, res) => {
   try {
-    const resendOtp = Math.floor(100000 + Math.random() * 900000);
-    console.log(resendOtp);
-    req.session.forgotOtp = resendOtp;
-    console.log("testing", req.session.forgotOtp);
+    await client.verify.v2.services(verifyServiceSid).verifications.create({
+      to: `+91${req.session.mobile}`,
+      channel: "sms",
+    });
     res.render("sendOtp", {
       message: "OTP has been resent.",
-      otp: req.session.forgotOtp,
     });
   } catch (error) {
     console.log(error.message);
@@ -315,7 +322,6 @@ const resetPassword = async (req, res) => {
       );
 
       if (!newUser) {
-        
         return res.redirect("/login");
       }
 
@@ -335,32 +341,28 @@ const resetPassword = async (req, res) => {
 
 const resendOtp = async (req, res) => {
   try {
-    // const otp = Math.floor(100000 + Math.random() * 900000);
-    // console.log(otp);
-    // await client.messages.create({
-    //   body: `Your OTP: ${otp}`,
-    //   from: twilioNumber,
-    //   to: `+91${user.mobile}`,
-    // });
+  
+    await client.verify.v2.services(verifyServiceSid).verifications.create({
+      to: `+91${req.session.mobile}`,
+      channel: "sms",
+    });
+      const userData = req.session.user;
+      req.session.user = {
+        firstname: userData.firstname,
+        lastname: userData.lastname,
+        email: userData.email,
+        mobile: userData.mobile,
+        password: userData.password,
+        is_admin: userData.is_admin,
+      };
 
-    // Store the OTP and user data in the session
-    req.session.otp = otp;
-    const userData = req.session.user;
-    req.session.user = {
-      firstname: userData.firstname,
-      lastname: userData.lastname,
-      email: userData.email,
-      mobile: userData.mobile,
-      password: userData.password,
-      is_admin: userData.is_admin,
-    };
-
-    res.redirect("/verifyOtp");
+      res.redirect("/verifyOtp");
+    
   } catch (error) {
     console.log(error.message);
     return res.render("signup", { message: "All fields should be filled" });
   }
-};
+  }
 
 const getShop = async (req, res) => {
   try {
@@ -376,7 +378,7 @@ const getShop = async (req, res) => {
     if (req.query.high) {
       sortQuery = { price: -1 };
     }
-  
+
     if (userId) {
       let cart = await Cart.findOne({ userId });
       if (cart) {
@@ -495,9 +497,8 @@ const singleProductLoad = async (req, res) => {
     const productId = req.query.id;
     const userId = req.session.user_id;
 
-   
     const singleProduct = await Product.findOne({ _id: productId });
-    
+
     let cartCount = 0;
     if (userId) {
       let cart = await Cart.findOne({ userId });
@@ -515,8 +516,7 @@ const singleProductLoad = async (req, res) => {
       allProducts: allProducts,
     });
   } catch (error) {
-  
-    res.render("500",'Internal Server Error');
+    res.render("500", "Internal Server Error");
   }
 };
 
@@ -547,10 +547,7 @@ const addToCart = async (req, res) => {
             },
           }
         );
-       
-      
       } else {
-       
         const newProduct = await Cart.updateOne(
           { userId: userId },
           {
@@ -566,9 +563,6 @@ const addToCart = async (req, res) => {
         grandTotal: product.price,
       });
       await newCart.save();
-
-     
- 
     }
 
     res.redirect("/shop");
@@ -685,9 +679,9 @@ const displayProduct = async (req, res) => {
     const category = await Category.find({});
     const page = parseInt(req.query.page) || 1;
     const limit = 6;
-    const skip = (page - 1) * limit; 
+    const skip = (page - 1) * limit;
     const searchQuery = req.body.search || "";
-   
+
     const searchFilter = {
       $and: [
         { is_listed: true },
@@ -696,20 +690,20 @@ const displayProduct = async (req, res) => {
         },
       ],
     };
-    const totalProducts = await Product.countDocuments(searchFilter); 
-    const totalPages = Math.ceil(totalProducts / limit); 
+    const totalProducts = await Product.countDocuments(searchFilter);
+    const totalPages = Math.ceil(totalProducts / limit);
     const products = await Product.find(searchFilter)
       .skip(skip)
       .limit(limit)
       .populate("category");
-      const paginationLinks = [];
+    const paginationLinks = [];
     for (let i = 1; i <= totalPages; i++) {
       const link = `?page=${i}&search=${searchQuery}`;
       paginationLinks.push(link);
     }
-   
+console.log(products)
     res.render("shop", {
-      allcategory: products,
+      allcategory: category,
       allProducts: products,
       currentPage: page,
       totalPages,
@@ -731,7 +725,7 @@ const categoryPage = async (req, res) => {
       category: categoryId,
       is_listed: true,
     });
-    
+
     const totalPages = Math.ceil(totalProducts / limit);
 
     const product = await Product.find({
@@ -756,49 +750,31 @@ const categoryPage = async (req, res) => {
 
 const sortProducts = async (req, res) => {
   try {
-   
-    const sortOption = req.query.sort || "lowToHigh"; 
-    let allProducts = await Product.find().sort({ price: -1 }); 
-    const allcategory = await Category.find({});
-   
-
-    res.render("shop", { allProducts, allcategory });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-};
-
-const filterbySize = async (req, res) => {
-  try {
-    
+    const sortOption = req.query.sort || "lowToHigh";
     let allProducts = await Product.find().sort({ price: -1 });
-    const allcategory = await Category.find();
-     const sizeFilter = req.query.size;
-    if (sizeFilter) {
-      allProducts = allProducts.filter(
-        (product) => product.size === sizeFilter
-      );
-    }
+    console.log(allProducts)
+    const allcategory = await Category.find({});
+    console.log(allcategory)
+
     res.render("shop", { allProducts, allcategory });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
 };
+
+
 
 const loadCheckout = async (req, res) => {
   try {
     const userId = req.session.user_id;
 
-   
     const user = await User.findOne({ _id: userId });
     const cart = await Cart.findOne({ userId: userId })
       .populate("product.productId")
       .exec();
 
     if (!cart || !cart.product) {
-      
       return res.render("404");
     }
     let subTotal = 0;
@@ -806,7 +782,7 @@ const loadCheckout = async (req, res) => {
       subTotal += cart.product[i].total;
     }
 
-    res.render("checkout", {
+    res.render("checkOut", {
       user: user,
       cart,
       grandTotal: subTotal, // Use the subTotal directly as the grandTotal
@@ -821,7 +797,6 @@ const loadCheckout = async (req, res) => {
 
 const Checkout = async (req, res) => {
   try {
-   
     const cart = await Cart.findOne({ userId: req.session.user_id })
       .populate("product.productId")
       .exec();
@@ -852,16 +827,14 @@ const Checkout = async (req, res) => {
     // res.redirect(`/viewOrderDetails?id=${orderId}`);
     res.send("sucess");
   } catch (error) {
-   
-    res.render("500",'Internal Server Error');
+    res.render("500", "Internal Server Error");
   }
 };
 const userProfile = async (req, res) => {
   try {
     const userId = req.session.user_id;
-  
-    const userData = await User.findOne({ _id: userId });
 
+    const userData = await User.findOne({ _id: userId });
 
     res.render("profile");
   } catch (error) {
@@ -870,8 +843,6 @@ const userProfile = async (req, res) => {
 };
 const profileAddressAdd = async (req, res) => {
   try {
-  
-
     const userId = req.session.user_id;
     const user = await User.findOne({ _id: userId });
     console.log(
@@ -903,7 +874,6 @@ const profileAddressAdd = async (req, res) => {
     res.status(500).json({ error: "Failed to add address." });
   }
 };
-
 
 const profileEdit = async (req, res) => {
   try {
@@ -937,16 +907,14 @@ const profileEdit = async (req, res) => {
       res.redirect("/checkOut");
     }
   } catch (error) {
-    console.log('error/:500');
+    console.log("error/:500");
   }
 };
 
 const editAddress = async (req, res) => {
   try {
     const userid = req.session.user_id;
-    const addressIdToEdit = req.body.addressId; 
-
-  
+    const addressIdToEdit = req.body.addressId;
 
     const userData = {
       name: req.body.name,
@@ -969,19 +937,19 @@ const editAddress = async (req, res) => {
         .status(404)
         .json({ error: "Address not found in user addresses" });
     }
-    user.addresses[indexToEdit] = userData; 
+    user.addresses[indexToEdit] = userData;
     await user.save();
     res.redirect("/checkOut");
-    } catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal server error" });
-    }
-    };
+  }
+};
 
 const deleteAddress = async (req, res) => {
   try {
     const userid = req.session.user_id;
-    const addressIdToDelete = req.query.address; 
+    const addressIdToDelete = req.query.address;
     const regex = /\b[0-9a-f]{24}\b/;
     const match = addressIdToDelete.match(regex);
     if (!match) {
@@ -996,39 +964,34 @@ const deleteAddress = async (req, res) => {
     user.addresses = user.addresses.filter(
       (address) => address._id.toString() !== addressId
     );
-   await user.save();
-   res.redirect("/checkOut");
+    await user.save();
+    res.redirect("/checkOut");
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
-const saveAddress=(req,res)=>{
-  
-  req.session.userAddress =req.query.address
-  res.json({message:'address saved'})
-  
-}
-
+const saveAddress = (req, res) => {
+  req.session.userAddress = req.query.address;
+  res.json({ message: "address saved" });
+};
 
 const changePassword = async (req, res) => {
   try {
     const { oldpassword, newpassword } = req.body;
     const userId = req.session.user_id;
     const user = await User.findById(userId);
-     if (!user) {
-  
+    if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-   if (!(await bcrypt.compare(oldpassword, user.password))) {
-    
+    if (!(await bcrypt.compare(oldpassword, user.password))) {
       return res.status(401).json({ error: "Invalid old password" });
     }
     const hashedNewPassword = await bcrypt.hash(newpassword, 10);
     user.password = hashedNewPassword;
     await user.save();
-   
+
     res.redirect("/profile");
   } catch (error) {
     req.flash("error", "Failed to change password");
@@ -1039,11 +1002,11 @@ const changePassword = async (req, res) => {
 const loadOrder = async (req, res) => {
   try {
     const userId = req.session.user_id;
-  
+
     const cart = await Cart.findOne({ userId: userId }).populate(
       "product.productId"
     );
-   res.render("checkOut", { cart });
+    res.render("checkOut", { cart });
   } catch (error) {
     console.log(error.message);
   }
@@ -1060,7 +1023,6 @@ const loadMyOrder = async (req, res) => {
 
     res.render("myOrder", { orders });
   } catch (error) {
-  
     res.render("500");
   }
 };
@@ -1072,7 +1034,9 @@ const walletPayment = async (req, res) => {
     const user = await User.findById({ _id: req.session.user_id });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     if (user.wallet >= total) {
@@ -1081,7 +1045,7 @@ const walletPayment = async (req, res) => {
       await user.save();
 
       // Payment successful, render checkout success page
-      return res.render("checkoutSuccess", { total,encodeWallet});
+      return res.render("checkoutSuccess", { total, encodeWallet });
     } else {
       // Insufficient balance for payment
       return res.render("checkoutError", {
@@ -1095,7 +1059,6 @@ const walletPayment = async (req, res) => {
       .json({ success: false, message: "An error occurred" });
   }
 };
-
 
 module.exports = {
   loadRegister,
@@ -1121,7 +1084,7 @@ module.exports = {
   displayProduct,
   categoryPage,
   sortProducts,
-  filterbySize,
+ 
   loadCheckout,
   Checkout,
   getCartTotal,
