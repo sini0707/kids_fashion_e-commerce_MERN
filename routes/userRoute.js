@@ -123,7 +123,6 @@ user_route.put('/returnOrder',orderController.returnOrder)
 user_route.get('/invoice/:id',orderController.invoice);
 
 
-user_route.post('/wallet-payment',userController.walletPayment);
 
 
 

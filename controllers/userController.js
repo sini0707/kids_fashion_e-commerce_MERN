@@ -782,7 +782,7 @@ const loadCheckout = async (req, res) => {
       subTotal += cart.product[i].total;
     }
 
-    res.render("checkOut", {
+    res.render("checkout", {
       user: user,
       cart,
       grandTotal: subTotal, // Use the subTotal directly as the grandTotal
@@ -1027,38 +1027,7 @@ const loadMyOrder = async (req, res) => {
   }
 };
 
-const walletPayment = async (req, res) => {
-  try {
-    const encodeWallet = JSON.stringify(wallet);
-    const total = req.body.total;
-    const user = await User.findById({ _id: req.session.user_id });
 
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
-    }
-
-    if (user.wallet >= total) {
-      // Sufficient balance for payment
-      user.wallet -= total;
-      await user.save();
-
-      // Payment successful, render checkout success page
-      return res.render("checkoutSuccess", { total, encodeWallet });
-    } else {
-      // Insufficient balance for payment
-      return res.render("checkoutError", {
-        message: "Insufficient wallet balance for payment",
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ success: false, message: "An error occurred" });
-  }
-};
 
 module.exports = {
   loadRegister,
@@ -1097,5 +1066,5 @@ module.exports = {
   changePassword,
   // loadOrder,
   loadMyOrder,
-  walletPayment,
+  
 };
