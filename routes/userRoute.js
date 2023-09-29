@@ -77,7 +77,7 @@ user_route.delete('/remove-product-wishlist',wishlistController.removeProductWis
 user_route.get('/categoryShop',userController.categoryPage);
 user_route.get('/productsort', userController.sortProducts);
 
-user_route.get('/checkout',userController.loadCheckout);
+user_route.get('/checkOut',userController.loadCheckout);
 
 
 
