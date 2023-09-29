@@ -999,18 +999,18 @@ const changePassword = async (req, res) => {
   }
 };
 
-const loadOrder = async (req, res) => {
-  try {
-    const userId = req.session.user_id;
+// const loadOrder = async (req, res) => {
+//   try {
+//     const userId = req.session.user_id;
 
-    const cart = await Cart.findOne({ userId: userId }).populate(
-      "product.productId"
-    );
-    res.render("checkOut", { cart });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     const cart = await Cart.findOne({ userId: userId }).populate(
+//       "product.productId"
+//     );
+//     res.render("checkOut", { cart });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 const loadMyOrder = async (req, res) => {
   try {
@@ -1095,7 +1095,7 @@ module.exports = {
   deleteAddress,
   saveAddress,
   changePassword,
-  loadOrder,
+  // loadOrder,
   loadMyOrder,
   walletPayment,
 };
