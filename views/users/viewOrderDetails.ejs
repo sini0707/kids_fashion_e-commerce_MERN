@@ -66,59 +66,56 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-3">
-            <div class="header__logo">
-              <a href="./index.html"
-                ><img src="/img/kid-logo.jpg" alt="" width="150" height="100"
-              /></a>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <nav class="header__menu mobile-menu">
-              <ul>
-                <li><a href="/home">Home</a></li>
-                <li class="active"><a href="/shop">Shop</a></li>
-                <li>
-                  <a href="#">Pages</a>
-                  <ul class="dropdown">
-                  <li><a href="/shop">Shop Details</a></li>
-                    <li><a href="/cart">Shopping Cart</a></li>
-                   </ul>
-                </li>
-                </ul>
-            </nav>
-          </div>
-
-                
-
-                    <div class="view-details"></div>
-                    <% if (orders && orders.orderItems.length > 0) { %>
-                        <div class="view-details">
-                            <% orders.orderItems.forEach(item => { %>
-                                <div class="order-item">
-                                    <p>Product: <%= item.productId.name %></p>
-                                    <p>Quantity: <%= item.quantity %></p>
-                                   </div>
-                            <% }); %>
-                            <p>Total: <%= orders.grandTotal %></p>
-                            <p>Order Status: <%= orders.status %></p>
-                            <p>Payment Method: <%= orders.paymentMethod %></p>
-                            <% var date = new Date(orders.dateOrdered); %>
-                            <p>Date Ordered: <%= date.toLocaleDateString('en-US') %></p>
-                           
-          
-          
-          
-                           
-                        </div>
-                    <% } else { %>
-                        <p>No orders found.</p>
-          
-                    <% } %>
-                    
+   
+    
+        </head> 
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-3 col-md-3">
+                  <div class="header__logo">
+                      <a href="./index.html"><img src="/img/kid-logo.jpg" alt="" width="150" height="100" /></a>
                   </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                  <nav class="header__menu mobile-menu">
+                      <ul>
+                          <li><a href="/home">Home</a></li>
+                          <li class="active"><a href="/shop">Shop</a></li>
+                          <li>
+                              <a href="#">Pages</a>
+                              <ul class="dropdown">
+                                  <li><a href="/shop">Shop Details</a></li>
+                                  <li><a href="/cart">Shopping Cart</a></li>
+                              </ul>
+                          </li>
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+          
+          <!-- Order Details Section -->
+          <div class="row">
+              <div class="col-lg-9 col-md-9">
+                  <div class="view-details">
+                      <% if (orders && orders.orderItems.length > 0) { %>
+                          <% orders.orderItems.forEach(item => { %>
+                              <div class="order-item">
+                                  <p>Product: <%= item.productId.name %></p>
+                                  <p>Quantity: <%= item.quantity %></p>
+                              </div>
+                          <% }); %>
+                          <p>Total: <%= orders.grandTotal %></p>
+                          <p>Order Status: <%= orders.status %></p>
+                          <p>Payment Method: <%= orders.paymentMethod %></p>
+                          <% var date = new Date(orders.dateOrdered); %>
+                          <p>Date Ordered: <%= date.toLocaleDateString('en-US') %></p>
+                      <% } else { %>
+                          <p>No orders found.</p>
+                      <% } %>
+                  </div>
+              </div>
+          </div>
+      </div>
 <script src="js/jquery-3.3.1.min.js"></script>
  <script src="js/bootstrap.min.js"></script>
  <script src="js/jquery.nice-select.min.js"></script>
