@@ -356,7 +356,7 @@ const salesreport = async (req, res) => {
       .populate("orderItems.quantity");
 
     console.log("this is my", order_data, "order Data");
-    res.render("salesreport", { order_data, preDate, postDate });
+    res.render("salesReport", { order_data, preDate, postDate });
   } catch (err) {
     res.status(500).send(err.message);
   }
