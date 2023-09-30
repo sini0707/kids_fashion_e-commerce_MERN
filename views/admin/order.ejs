@@ -1,10 +1,12 @@
 
 <%- include ('../layouts/admin-Header.ejs') %>
 
-<main id="main">
+
     <%-include ('../partials/admin-header.ejs') %>
+    <main id="main">
 
 <!-- User Listing Table-->
+<section class="container-fluid">
 
 <div class="table-responsive">
     <table class="table" id="order-table">
@@ -126,7 +128,8 @@
 
  
 
-
+</div>
+</section>
   <script>
     $(document).ready(function() {
       $('.table').DataTable();
