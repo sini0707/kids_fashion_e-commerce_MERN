@@ -833,6 +833,7 @@ const Checkout = async (req, res) => {
 const userProfile = async (req, res) => {
   try {
     const userId = req.session.user_id;
+    console.log(userId);
 
     const userData = await User.findOne({ _id: userId });
 
